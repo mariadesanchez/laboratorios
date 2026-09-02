@@ -200,13 +200,12 @@
     </div>
 
     <script>
-        const SHEET_URL = "https://docs.google.com/spreadsheets/d/14ZztKi48kD5Ihxv83owq2t-FhLHkjlZ1oGdZSQ_-NEQ/export?format=csv&gid=2040789053";
-        const PROXY_URL = "https://api.allorigins.win/raw?url=" + encodeURIComponent(SHEET_URL);
+        const CSV_URL = "obras_sociales.csv";
         let allData = [];
 
         async function fetchData() {
             try {
-                const response = await fetch(PROXY_URL);
+                const response = await fetch(CSV_URL);
                 if (!response.ok) throw new Error("Error de red");
                 const csvText = await response.text();
                 parseCSV(csvText);
