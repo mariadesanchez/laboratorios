@@ -199,33 +199,82 @@
         </table>
     </div>
 
+    
     <script>
-        const CSV_URL = "obras_sociales.csv";
+        const csvText = `Obra Social,Código,Nota
+ACCORD SALUD,A02,#Afil sin los dos primeros digitos y sin el último
+BANCO PROVIN.-AMEBPBA 50% ( BCO ),BCO,
+CASA 40% - JUB/BAS/H/INTE/MED ( CBA ),CBA,
+CEMIC 40% ( MI4 ),MI4,
+CLUB LA NACION ( CLN ),CLN,
+COSEGURO DOMINGUEZ 15% ( CDO ),CDO,
+D.O.S.U.B.A. 40% ( IB1 ),IB1,
+DAS CONGRESO 50% ( DAS ),DAS,
+DESCUENTO ESPECIAL S/T ( O.V ),O.V,
+FONDO COMPENSADOR TELEFONICO ( FCC ),FCC,
+FT-CHEQ 20% ( FT2 ),FT2,
+GALENO 40% ( ASA ),ASA,
+HOSPITAL ALEMAN 40% ( HOS ),HOS,
+HOSPITAL BRITANICO 40% ( HB5 ),HB5,# Afiliado con la /
+I.O.S.F.A. / AMBULAT. UNIFICAD ( FSA ),FSA,
+IOMA ( IMO ),IMO,
+LA RECIPROCA-AMEPBA 30% ( RAL ),RAL,
+LUIS PASTEUR 60% -O.PLANES- ( LP7 ),LP7,
+MEDICUS 40% -O.PLANES ( MC4 ),MC4,
+O.S.COMIS.NAVALES MIXTO ( NAV ),NAV,
+OB.S.B.A.(EX-IMOS) 50% ( IME ),IME ,
+OBRA SOCIAL DE COMISARIOS-NAVALES OSPAÑA GLOBAL,NAV,Si no toma validado tabular al 40%
+OMINT 40% ( OMI ),OMI,
+OSDE 40-70% ( OSD ),OSD,
+OSDE PLAN ESPECIAL 100% ( OSP ),OSP,
+OSDEPYM- 40% PYME 800 OSPAÑA ( P6Y ),P6Y,
+OSECAC 40% - ACTIVOS ( OS3 ),OS3,
+OSECAC 50% - PASIVOS ( OE6 ),OE6,
+OSOCNA OBRA SOCIAL DE COMISARIOS NAVALES,NAV,Si no toma validado tabular al 40%
+OSPRERA / PLAN GENERAL ( OPS ),OPS,
+OSSEG - MIXTO ( SE7 ),SE7,
+OSTIG/TRAB.IND.DEL GAS 40% ( TI4 ),TI4,
+P.SALUD HOSP.ITALIANO 40% ( NPC ),NPC,
+PAMI ( PAM ),PAM,
+PAP DESCUENTO 30% ( PA3 ),PA3,
+PODER JUDICIAL / 70% ( POD ),POD,
+PREVENCION SALUD 40%-50%-60% ( PSV ),PSV,
+RECETARIO SOLIDARIO 20% ( R20 ),R20,
+S.M.G.-APSOT/FSST 40% ( CHT ),CHT,
+SANCOR SALUD - MIXTO (VALIDA) ( SIS ),SIS,
+SOCIAL SALUD TKL ( TKL ),TKL,
+SOCIAL SALUD TKL (BAGO) ( TBA ),BAGO,
+SOCIAL SALUD TKL (DOMINGUEZ) ( SDO ),SDO,
+SOCIAL SALUD TKL (FORTBENTON) ( FOR ), FOR,
+SOCIAL SALUD TKL (PANALAB) ( SPA ),SPA ,
+SOCIAL SALUD TKL (PHARMOS) ( PHA ),PHA,
+SWISS MEDICAL GROUP 40% ( SW3 ),SW3,
+TARMED 100% ( TAR ),TAR,
+TV SALUD / SAT 50% - ROSA ( TV7 ),TV7,
+U. PERSONAL - COSEGURO 30% ( UPC ),UPC,
+UNION PERSONAL,A02,#Afil sin los dos primeros digitos y sin el último
+W.HOPE / MIXTO-TKL ( WWW ),WWW,`;
         let allData = [];
 
-        async function fetchData() {
+        function initData() {
             try {
-                const response = await fetch(CSV_URL);
-                if (!response.ok) throw new Error("Error de red");
-                const csvText = await response.text();
                 parseCSV(csvText);
             } catch (error) {
-                document.getElementById('tableBody').innerHTML = '<tr><td colspan="3" class="loader" style="color:#e74c3c">Error al cargar los datos. Es posible que el navegador bloquee la conexión (CORS) o no haya internet.</td></tr>';
+                document.getElementById("tableBody").innerHTML = "<tr><td colspan="3" class="loader" style="color:#e74c3c">Error al procesar los datos locales.</td></tr>";
                 console.error(error);
             }
         }
 
         function parseCSV(text) {
-            const lines = text.split('\n').filter(line => line.trim() !== '');
+            const lines = text.split("\n").filter(line => line.trim() !== "");
             const headers = lines.shift(); 
             
             allData = lines.map(line => {
-                // A simple split by comma handling potential spaces
-                const parts = line.split(',');
+                const parts = line.split(",");
                 return {
-                    obraSocial: parts[0] ? parts[0].trim() : '',
-                    codigo: parts[1] ? parts[1].trim() : '',
-                    nota: parts.slice(2).join(',').trim()
+                    obraSocial: parts[0] ? parts[0].trim() : "",
+                    codigo: parts[1] ? parts[1].trim() : "",
+                    nota: parts.slice(2).join(",").trim()
                 };
             }).filter(item => item.obraSocial || item.codigo); 
 
@@ -233,30 +282,30 @@
         }
 
         function renderTable(data) {
-            const tbody = document.getElementById('tableBody');
-            tbody.innerHTML = '';
+            const tbody = document.getElementById("tableBody");
+            tbody.innerHTML = "";
             
             if (data.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="3" class="loader">No se encontraron resultados.</td></tr>';
+                tbody.innerHTML = "<tr><td colspan="3" class="loader">No se encontraron resultados.</td></tr>";
                 return;
             }
 
             data.forEach(item => {
-                const tr = document.createElement('tr');
+                const tr = document.createElement("tr");
                 
-                const tdObra = document.createElement('td');
+                const tdObra = document.createElement("td");
                 tdObra.textContent = item.obraSocial;
                 tdObra.style.fontWeight = "bold";
                 
-                const tdCode = document.createElement('td');
+                const tdCode = document.createElement("td");
                 if (item.codigo) {
-                    const badge = document.createElement('span');
-                    badge.className = 'code-badge';
+                    const badge = document.createElement("span");
+                    badge.className = "code-badge";
                     badge.textContent = item.codigo;
                     tdCode.appendChild(badge);
                 }
                 
-                const tdNota = document.createElement('td');
+                const tdNota = document.createElement("td");
                 tdNota.textContent = item.nota;
                 tdNota.style.fontSize = "13px";
                 tdNota.style.color = "#666";
@@ -268,7 +317,7 @@
             });
         }
 
-        document.getElementById('searchInput').addEventListener('input', function(e) {
+        document.getElementById("searchInput").addEventListener("input", function(e) {
             const term = e.target.value.toLowerCase();
             const filteredData = allData.filter(item => 
                 item.obraSocial.toLowerCase().includes(term) || 
@@ -278,7 +327,8 @@
             renderTable(filteredData);
         });
 
-        fetchData();
+        initData();
     </script>
+
 </body>
 </html>
