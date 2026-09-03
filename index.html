@@ -1206,7 +1206,7 @@
                     </div>
                     <div class="label">Temis Lostalo</div>
                 </div>
-                <div class="drawer">
+                <div class="drawer" id="drawer-evoquin-4-4">
                     <div class="logo-container"><img class="logo" src="https://www.google.com/s2/favicons?domain=tevapharm.com&sz=128" alt="Teva" onerror="this.style.display='none'"></div>
                     <div class="label">Teva</div>
                 </div>
@@ -1556,25 +1556,48 @@
     <script>
         const searchInput = document.getElementById("searchInput");
         const craveriDrawer = document.getElementById("drawer-craveri-7-2");
+        const evoquinDrawer = document.getElementById("drawer-evoquin-4-4");
         
-        searchInput.addEventListener("input", (e) => {
-            const val = e.target.value.toLowerCase().trim();
-            if (val === "islotin") {
-                if (craveriDrawer) {
-                    craveriDrawer.style.background = "linear-gradient(to bottom, #ffaf33 0%, #f39200 100%)";
-                    craveriDrawer.style.boxShadow = "0 0 15px rgba(243, 146, 0, 0.8), inset 0 2px 0 rgba(255,255,255,1)";
-                    craveriDrawer.style.borderBottom = "2px solid #b36b00";
-                    craveriDrawer.style.transform = "translateY(-2px) scale(1.02)";
-                }
-            } else {
+        if (searchInput) {
+            searchInput.addEventListener("input", (e) => {
+                const val = e.target.value.toLowerCase().trim();
+                
+                // Reset all
                 if (craveriDrawer) {
                     craveriDrawer.style.background = "";
                     craveriDrawer.style.boxShadow = "";
                     craveriDrawer.style.borderBottom = "";
                     craveriDrawer.style.transform = "";
                 }
-            }
-        });
+                if (evoquinDrawer) {
+                    evoquinDrawer.style.background = "";
+                    evoquinDrawer.style.boxShadow = "";
+                    evoquinDrawer.style.borderBottom = "";
+                    evoquinDrawer.style.transform = "";
+                }
+
+                const highlightBg = "linear-gradient(to bottom, #ffaf33 0%, #f39200 100%)";
+                const highlightShadow = "0 0 15px rgba(243, 146, 0, 0.8), inset 0 2px 0 rgba(255,255,255,1)";
+                const highlightBorder = "2px solid #b36b00";
+                const highlightTransform = "translateY(-2px) scale(1.02)";
+
+                if (val === "islotin") {
+                    if (craveriDrawer) {
+                        craveriDrawer.style.background = highlightBg;
+                        craveriDrawer.style.boxShadow = highlightShadow;
+                        craveriDrawer.style.borderBottom = highlightBorder;
+                        craveriDrawer.style.transform = highlightTransform;
+                    }
+                } else if (val === "evoquin") {
+                    if (evoquinDrawer) {
+                        evoquinDrawer.style.background = highlightBg;
+                        evoquinDrawer.style.boxShadow = highlightShadow;
+                        evoquinDrawer.style.borderBottom = highlightBorder;
+                        evoquinDrawer.style.transform = highlightTransform;
+                    }
+                }
+            });
+        }
     </script>
 </body>
 
