@@ -1230,7 +1230,7 @@
                 </div>
 
                 <!-- Fila 5 -->
-                <div class="drawer">
+                <div class="drawer" id="drawer-regulane-5-1">
                     <div class="logo-container"><img class="logo" src="https://www.google.com/s2/favicons?domain=finadiet.com.ar&sz=128" alt="Finadiet" onerror="this.style.display='none'"></div>
                     <div class="label">Finadiet</div>
                 </div>
@@ -1558,6 +1558,7 @@
         const craveriDrawer = document.getElementById("drawer-craveri-7-2");
         const evoquinDrawer = document.getElementById("drawer-evoquin-4-4");
         const amixenDrawer = document.getElementById("drawer-amixen-1-1");
+        const regulaneDrawer = document.getElementById("drawer-regulane-5-1");
         
         if (searchInput) {
             searchInput.addEventListener("input", (e) => {
@@ -1581,6 +1582,12 @@
                     amixenDrawer.style.boxShadow = "";
                     amixenDrawer.style.borderBottom = "";
                     amixenDrawer.style.transform = "";
+                }
+                if (regulaneDrawer) {
+                    regulaneDrawer.style.background = "";
+                    regulaneDrawer.style.boxShadow = "";
+                    regulaneDrawer.style.borderBottom = "";
+                    regulaneDrawer.style.transform = "";
                 }
 
                 const highlightBg = "linear-gradient(to bottom, #ffaf33 0%, #f39200 100%)";
@@ -1608,6 +1615,13 @@
                         amixenDrawer.style.boxShadow = highlightShadow;
                         amixenDrawer.style.borderBottom = highlightBorder;
                         amixenDrawer.style.transform = highlightTransform;
+                    }
+                } else if (val === "regulane") {
+                    if (regulaneDrawer) {
+                        regulaneDrawer.style.background = highlightBg;
+                        regulaneDrawer.style.boxShadow = highlightShadow;
+                        regulaneDrawer.style.borderBottom = highlightBorder;
+                        regulaneDrawer.style.transform = highlightTransform;
                     }
                 }
             });
