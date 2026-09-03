@@ -1002,7 +1002,7 @@
             <div class="grid">
                 <!-- Helper function for Google Favicons as a fallback for logos -->
                 <!-- Fila 1 -->
-                <div class="drawer">
+                <div class="drawer" id="drawer-amixen-1-1">
                     <div class="logo-container">
                         <div class="bernabo-logo">
                             <svg viewBox="0 0 100 100" width="20" height="20">
@@ -1557,6 +1557,7 @@
         const searchInput = document.getElementById("searchInput");
         const craveriDrawer = document.getElementById("drawer-craveri-7-2");
         const evoquinDrawer = document.getElementById("drawer-evoquin-4-4");
+        const amixenDrawer = document.getElementById("drawer-amixen-1-1");
         
         if (searchInput) {
             searchInput.addEventListener("input", (e) => {
@@ -1574,6 +1575,12 @@
                     evoquinDrawer.style.boxShadow = "";
                     evoquinDrawer.style.borderBottom = "";
                     evoquinDrawer.style.transform = "";
+                }
+                if (amixenDrawer) {
+                    amixenDrawer.style.background = "";
+                    amixenDrawer.style.boxShadow = "";
+                    amixenDrawer.style.borderBottom = "";
+                    amixenDrawer.style.transform = "";
                 }
 
                 const highlightBg = "linear-gradient(to bottom, #ffaf33 0%, #f39200 100%)";
@@ -1594,6 +1601,13 @@
                         evoquinDrawer.style.boxShadow = highlightShadow;
                         evoquinDrawer.style.borderBottom = highlightBorder;
                         evoquinDrawer.style.transform = highlightTransform;
+                    }
+                } else if (val === "amixen") {
+                    if (amixenDrawer) {
+                        amixenDrawer.style.background = highlightBg;
+                        amixenDrawer.style.boxShadow = highlightShadow;
+                        amixenDrawer.style.borderBottom = highlightBorder;
+                        amixenDrawer.style.transform = highlightTransform;
                     }
                 }
             });
