@@ -805,6 +805,42 @@
             margin-top: 1px;
         }
 
+        
+        /* Custom Richmond Logo CSS */
+        .richmond-logo {
+            background-color: transparent;
+            width: 70px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .richmond-icon {
+            margin-right: 3px;
+            margin-top: 2px;
+        }
+        .richmond-text-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .richmond-lab {
+            color: #559397; 
+            font-family: "Segoe UI", Arial, sans-serif;
+            font-size: 5px;
+            line-height: 1;
+            margin-bottom: 0.5px;
+            margin-left: 0.5px;
+        }
+        .richmond-text {
+            color: #559397;
+            font-family: "Segoe UI", Arial, sans-serif;
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 0px;
+            line-height: 1;
+        }
+
         /* Custom Bernabo Logo CSS */
         .bernabo-logo {
             background-color: white; 
@@ -1035,8 +1071,22 @@
                     <div class="label">Teva</div>
                 </div>
                 <div class="drawer">
-                    <div class="logo-container"><img class="logo" src="https://www.google.com/s2/favicons?domain=laboratoriosrichmond.com&sz=128" alt="Richmond" onerror="this.style.display='none'"></div>
-                    <div class="label">Richtmond</div>
+                    <div class="logo-container">
+                        <div class="richmond-logo">
+                            <div class="richmond-icon">
+                                <svg viewBox="0 0 100 100" width="20" height="20">
+                                    <path d="M 5 25 L 12 25 L 12 50 L 5 50 Z" fill="#e30219" />
+                                    <path d="M 10 25 C 40 15, 90 15, 95 30 C 105 45, 60 55, 30 65 C 20 68, 10 70, 10 70 C 20 65, 80 50, 85 35 C 88 28, 60 23, 10 27 Z" fill="#e30219" />
+                                    <path d="M 15 65 C 35 60, 40 70, 45 85 C 47 95, 30 95, 20 85 Z" fill="#e30219" />
+                                </svg>
+                            </div>
+                            <div class="richmond-text-container">
+                                <div class="richmond-lab">Laboratorios</div>
+                                <div class="richmond-text">RICHMOND</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="label">Richmond</div>
                 </div>
 
                 <!-- Fila 5 -->
