@@ -1558,17 +1558,13 @@
             const val = e.target.value.toLowerCase().trim();
             if (val === "islotin") {
                 if (craveriDrawer) {
-                    craveriDrawer.style.background = "linear-gradient(to bottom, #d5f5e3 0%, #abebc6 50%, #82e0aa 100%)";
-                    craveriDrawer.style.boxShadow = "0 0 15px rgba(46, 204, 113, 0.8), inset 0 2px 0 rgba(255,255,255,1)";
-                    craveriDrawer.style.borderBottom = "2px solid #2ecc71";
-                    craveriDrawer.style.transform = "translateY(-2px) scale(1.02)";
+                    craveriDrawer.style.background = "#8ba1a1"; // Verde apagado / grisáceo (estilo screenshot)
+                    craveriDrawer.style.boxShadow = "inset 0 0 10px rgba(0,0,0,0.1)"; // Sombra sutil para que parezca hundido/resaltado
                 }
             } else {
                 if (craveriDrawer) {
                     craveriDrawer.style.background = "";
                     craveriDrawer.style.boxShadow = "";
-                    craveriDrawer.style.borderBottom = "";
-                    craveriDrawer.style.transform = "";
                 }
             }
         });
