@@ -1094,7 +1094,7 @@
                     </div>
                     <div class="label">Rafo (Adium)</div>
                 </div>
-                <div class="drawer">
+                <div class="drawer" id="drawer-reliveran-2-3">
                     <div class="logo-container" style="flex-direction:row; gap:4px; width:100%;">
                         <div class="gador-logo" style="width:65px;">
                             <div class="gador-cross">
@@ -1565,6 +1565,7 @@
         const regulaneDrawer = document.getElementById("drawer-regulane-5-1");
         const aliviaflebDrawer = document.getElementById("drawer-aliviafleb-3-5");
         const hexalercortDrawer = document.getElementById("drawer-hexalercort-6-1");
+        const reliveranDrawer = document.getElementById("drawer-reliveran-2-3");
         
         if (searchInput) {
             searchInput.addEventListener("input", (e) => {
@@ -1606,6 +1607,12 @@
                     hexalercortDrawer.style.boxShadow = "";
                     hexalercortDrawer.style.borderBottom = "";
                     hexalercortDrawer.style.transform = "";
+                }
+                if (reliveranDrawer) {
+                    reliveranDrawer.style.background = "";
+                    reliveranDrawer.style.boxShadow = "";
+                    reliveranDrawer.style.borderBottom = "";
+                    reliveranDrawer.style.transform = "";
                 }
 
                 const highlightBg = "linear-gradient(to bottom, #ffaf33 0%, #f39200 100%)";
@@ -1654,6 +1661,13 @@
                         hexalercortDrawer.style.boxShadow = highlightShadow;
                         hexalercortDrawer.style.borderBottom = highlightBorder;
                         hexalercortDrawer.style.transform = highlightTransform;
+                    }
+                } else if (val === "reliveran") {
+                    if (reliveranDrawer) {
+                        reliveranDrawer.style.background = highlightBg;
+                        reliveranDrawer.style.boxShadow = highlightShadow;
+                        reliveranDrawer.style.borderBottom = highlightBorder;
+                        reliveranDrawer.style.transform = highlightTransform;
                     }
                 }
             });
