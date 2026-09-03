@@ -18,6 +18,27 @@
         }
         
         /* TKL Navigation Bar */
+        
+        .search-container {
+            flex-grow: 1;
+            margin: 0 30px;
+            display: flex;
+            align-items: center;
+        }
+        #searchInput {
+            width: 100%;
+            max-width: 400px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+        #searchInput:focus {
+            box-shadow: 0 0 0 2px rgba(243, 146, 0, 0.5), inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+
         .tkl-nav {
             position: fixed;
             top: 0;
@@ -1332,7 +1353,7 @@
                     <div class="logo-container"><img class="logo" src="https://www.google.com/s2/favicons?domain=siegfried.com.ar&sz=128" alt="Siegfried" onerror="this.style.display='none'"></div>
                     <div class="label">Siegfried</div>
                 </div>
-                <div class="drawer">
+                <div class=\"drawer\" id=\"drawer-craveri-7-2\">
                     <div class="logo-container">
                         <div class="craveri-logo">
                             <div class="craveri-text">CRAVERI</div>
@@ -1526,6 +1547,30 @@
                 // });
                 this.classList.toggle("open");
             });
+        });
+    </script>
+
+    <script>
+        const searchInput = document.getElementById("searchInput");
+        const craveriDrawer = document.getElementById("drawer-craveri-7-2");
+        
+        searchInput.addEventListener("input", (e) => {
+            const val = e.target.value.toLowerCase().trim();
+            if (val === "islotin") {
+                if (craveriDrawer) {
+                    craveriDrawer.style.background = "linear-gradient(to bottom, #d5f5e3 0%, #abebc6 50%, #82e0aa 100%)";
+                    craveriDrawer.style.boxShadow = "0 0 15px rgba(46, 204, 113, 0.8), inset 0 2px 0 rgba(255,255,255,1)";
+                    craveriDrawer.style.borderBottom = "2px solid #2ecc71";
+                    craveriDrawer.style.transform = "translateY(-2px) scale(1.02)";
+                }
+            } else {
+                if (craveriDrawer) {
+                    craveriDrawer.style.background = "";
+                    craveriDrawer.style.boxShadow = "";
+                    craveriDrawer.style.borderBottom = "";
+                    craveriDrawer.style.transform = "";
+                }
+            }
         });
     </script>
 </body>
