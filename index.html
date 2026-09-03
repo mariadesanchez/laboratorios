@@ -1506,7 +1506,7 @@
                     </div>
                     <div class="label">Fecofar<br>Eurolab</div>
                 </div>
-                <div class="drawer">
+                <div class="drawer" id="drawer-sildenafil-9-5">
                     <div class="logo-container">
                         <svg viewBox="0 0 100 100" width="40" height="40" style="filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2)); margin-top:2px;">
                             <defs>
@@ -1559,116 +1559,45 @@
 
     <script>
         const searchInput = document.getElementById("searchInput");
-        const craveriDrawer = document.getElementById("drawer-craveri-7-2");
-        const evoquinDrawer = document.getElementById("drawer-evoquin-4-4");
-        const amixenDrawer = document.getElementById("drawer-amixen-1-1");
-        const regulaneDrawer = document.getElementById("drawer-regulane-5-1");
-        const aliviaflebDrawer = document.getElementById("drawer-aliviafleb-3-5");
-        const hexalercortDrawer = document.getElementById("drawer-hexalercort-6-1");
-        const reliveranDrawer = document.getElementById("drawer-reliveran-2-3");
+        
+        const drawers = {
+            "islotin": document.getElementById("drawer-craveri-7-2"),
+            "evoquin": document.getElementById("drawer-evoquin-4-4"),
+            "amixen": document.getElementById("drawer-amixen-1-1"),
+            "regulane": document.getElementById("drawer-regulane-5-1"),
+            "aliviafleb": document.getElementById("drawer-aliviafleb-3-5"),
+            "hexaler": document.getElementById("drawer-hexalercort-6-1"),
+            "hexaler cort": document.getElementById("drawer-hexalercort-6-1"),
+            "reliveran": document.getElementById("drawer-reliveran-2-3"),
+            "sildenafil": document.getElementById("drawer-sildenafil-9-5")
+        };
         
         if (searchInput) {
             searchInput.addEventListener("input", (e) => {
                 const val = e.target.value.toLowerCase().trim();
                 
                 // Reset all
-                if (craveriDrawer) {
-                    craveriDrawer.style.background = "";
-                    craveriDrawer.style.boxShadow = "";
-                    craveriDrawer.style.borderBottom = "";
-                    craveriDrawer.style.transform = "";
-                }
-                if (evoquinDrawer) {
-                    evoquinDrawer.style.background = "";
-                    evoquinDrawer.style.boxShadow = "";
-                    evoquinDrawer.style.borderBottom = "";
-                    evoquinDrawer.style.transform = "";
-                }
-                if (amixenDrawer) {
-                    amixenDrawer.style.background = "";
-                    amixenDrawer.style.boxShadow = "";
-                    amixenDrawer.style.borderBottom = "";
-                    amixenDrawer.style.transform = "";
-                }
-                if (regulaneDrawer) {
-                    regulaneDrawer.style.background = "";
-                    regulaneDrawer.style.boxShadow = "";
-                    regulaneDrawer.style.borderBottom = "";
-                    regulaneDrawer.style.transform = "";
-                }
-                if (aliviaflebDrawer) {
-                    aliviaflebDrawer.style.background = "";
-                    aliviaflebDrawer.style.boxShadow = "";
-                    aliviaflebDrawer.style.borderBottom = "";
-                    aliviaflebDrawer.style.transform = "";
-                }
-                if (hexalercortDrawer) {
-                    hexalercortDrawer.style.background = "";
-                    hexalercortDrawer.style.boxShadow = "";
-                    hexalercortDrawer.style.borderBottom = "";
-                    hexalercortDrawer.style.transform = "";
-                }
-                if (reliveranDrawer) {
-                    reliveranDrawer.style.background = "";
-                    reliveranDrawer.style.boxShadow = "";
-                    reliveranDrawer.style.borderBottom = "";
-                    reliveranDrawer.style.transform = "";
-                }
+                Object.values(drawers).forEach(drawer => {
+                    if (drawer) {
+                        drawer.style.background = "";
+                        drawer.style.boxShadow = "";
+                        drawer.style.borderBottom = "";
+                        drawer.style.transform = "";
+                    }
+                });
 
                 const highlightBg = "linear-gradient(to bottom, #ffaf33 0%, #f39200 100%)";
                 const highlightShadow = "0 0 15px rgba(243, 146, 0, 0.8), inset 0 2px 0 rgba(255,255,255,1)";
                 const highlightBorder = "2px solid #b36b00";
                 const highlightTransform = "translateY(-2px) scale(1.02)";
 
-                if (val === "islotin") {
-                    if (craveriDrawer) {
-                        craveriDrawer.style.background = highlightBg;
-                        craveriDrawer.style.boxShadow = highlightShadow;
-                        craveriDrawer.style.borderBottom = highlightBorder;
-                        craveriDrawer.style.transform = highlightTransform;
-                    }
-                } else if (val === "evoquin") {
-                    if (evoquinDrawer) {
-                        evoquinDrawer.style.background = highlightBg;
-                        evoquinDrawer.style.boxShadow = highlightShadow;
-                        evoquinDrawer.style.borderBottom = highlightBorder;
-                        evoquinDrawer.style.transform = highlightTransform;
-                    }
-                } else if (val === "amixen") {
-                    if (amixenDrawer) {
-                        amixenDrawer.style.background = highlightBg;
-                        amixenDrawer.style.boxShadow = highlightShadow;
-                        amixenDrawer.style.borderBottom = highlightBorder;
-                        amixenDrawer.style.transform = highlightTransform;
-                    }
-                } else if (val === "regulane") {
-                    if (regulaneDrawer) {
-                        regulaneDrawer.style.background = highlightBg;
-                        regulaneDrawer.style.boxShadow = highlightShadow;
-                        regulaneDrawer.style.borderBottom = highlightBorder;
-                        regulaneDrawer.style.transform = highlightTransform;
-                    }
-                } else if (val === "aliviafleb") {
-                    if (aliviaflebDrawer) {
-                        aliviaflebDrawer.style.background = highlightBg;
-                        aliviaflebDrawer.style.boxShadow = highlightShadow;
-                        aliviaflebDrawer.style.borderBottom = highlightBorder;
-                        aliviaflebDrawer.style.transform = highlightTransform;
-                    }
-                } else if (val === "hexaler cort" || val === "hexaler") {
-                    if (hexalercortDrawer) {
-                        hexalercortDrawer.style.background = highlightBg;
-                        hexalercortDrawer.style.boxShadow = highlightShadow;
-                        hexalercortDrawer.style.borderBottom = highlightBorder;
-                        hexalercortDrawer.style.transform = highlightTransform;
-                    }
-                } else if (val === "reliveran") {
-                    if (reliveranDrawer) {
-                        reliveranDrawer.style.background = highlightBg;
-                        reliveranDrawer.style.boxShadow = highlightShadow;
-                        reliveranDrawer.style.borderBottom = highlightBorder;
-                        reliveranDrawer.style.transform = highlightTransform;
-                    }
+                const targetDrawer = drawers[val];
+                if (targetDrawer) {
+                    targetDrawer.style.background = highlightBg;
+                    targetDrawer.style.boxShadow = highlightShadow;
+                    targetDrawer.style.borderBottom = highlightBorder;
+                    targetDrawer.style.transform = highlightTransform;
+                    targetDrawer.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
             });
         }
