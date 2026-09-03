@@ -712,6 +712,57 @@
             line-height: 1;
         }
     
+        
+        /* Custom Eurolab Logo CSS */
+        .eurolab-logo {
+            background-color: transparent;
+            width: 70px;
+            height: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding-top: 3px; 
+            margin-top: -5px;
+        }
+        .eurolab-swoosh {
+            position: absolute;
+            top: 0px;
+            left: 10px;
+            width: 45px;
+            height: 12px;
+            border-top: 2.5px solid #ffcc00; 
+            border-top-left-radius: 100% 80%;
+            border-top-right-radius: 100% 80%;
+            transform: rotate(-3deg);
+        }
+        .eurolab-main {
+            color: #0b2265; 
+            font-family: "Arial Black", Arial, sans-serif;
+            font-style: italic;
+            font-size: 13px;
+            display: flex;
+            align-items: baseline;
+            line-height: 1;
+            letter-spacing: -0.5px;
+        }
+        .eurolab-lab {
+            font-weight: bold;
+            font-size: 13px;
+            font-family: Arial, sans-serif;
+            letter-spacing: 0;
+            margin-left: 1px;
+        }
+        .eurolab-sub {
+            color: #3b508f;
+            font-family: Arial, sans-serif;
+            font-style: italic;
+            font-size: 5px;
+            margin-top: 1px;
+            letter-spacing: 0.2px;
+        }
+
         /* Custom Bernabo Logo CSS */
         .bernabo-logo {
             background-color: white; 
@@ -1124,7 +1175,16 @@
                     <div class="label">Panalab</div>
                 </div>
                 <div class="drawer">
-                    <div class="logo-container"><img class="logo" src="https://www.google.com/s2/favicons?domain=fecofar.com.ar&sz=128" alt="Fecofar" onerror="this.style.display='none'"></div>
+                    <div class="logo-container" style="flex-direction:row; gap:4px; width:100%;">
+                        <div style="display:flex; flex-direction:column; align-items:center;">
+                            <img class="logo" src="https://www.google.com/s2/favicons?domain=fecofar.com.ar&sz=128" alt="Fecofar" style="width:16px; height:16px;" onerror="this.style.display='none'">
+                        </div>
+                        <div class="eurolab-logo" style="width:50px;">
+                            <div class="eurolab-swoosh" style="width:35px; left:5px;"></div>
+                            <div class="eurolab-main" style="font-size:10px;">EURO<span class="eurolab-lab" style="font-size:10px;">Lab</span></div>
+                            <div class="eurolab-sub" style="font-size:4px;">Laboratorios Eurolab</div>
+                        </div>
+                    </div>
                     <div class="label">Fecofar<br>Eurolab</div>
                 </div>
                 <div class="drawer">
