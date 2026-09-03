@@ -260,7 +260,7 @@ W.HOPE / MIXTO-TKL ( WWW ),WWW,`;
             try {
                 parseCSV(csvText);
             } catch (error) {
-                document.getElementById("tableBody").innerHTML = "<tr><td colspan="3" class="loader" style="color:#e74c3c">Error al procesar los datos locales.</td></tr>";
+                document.getElementById("tableBody").innerHTML = '<tr><td colspan="3" class="loader" style="color:#e74c3c">Error al procesar los datos locales.</td></tr>';
                 console.error(error);
             }
         }
@@ -286,7 +286,7 @@ W.HOPE / MIXTO-TKL ( WWW ),WWW,`;
             tbody.innerHTML = "";
             
             if (data.length === 0) {
-                tbody.innerHTML = "<tr><td colspan="3" class="loader">No se encontraron resultados.</td></tr>";
+                tbody.innerHTML = '<tr><td colspan="3" class="loader">No se encontraron resultados.</td></tr>';
                 return;
             }
 
