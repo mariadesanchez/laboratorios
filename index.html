@@ -20,10 +20,13 @@
         /* TKL Navigation Bar */
         
         .search-container {
-            flex-grow: 1;
-            margin: 0 30px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
             align-items: center;
+            width: 100%;
+            max-width: 400px;
         }
         #searchInput {
             width: 100%;
@@ -56,6 +59,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
         .nav-logo {
             color: white;
