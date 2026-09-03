@@ -841,6 +841,40 @@
             line-height: 1;
         }
 
+        
+        /* Custom Geminis Logo CSS */
+        .geminis-logo {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 2px;
+            padding: 1px 2px;
+            width: 48px;
+            box-sizing: border-box;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        .geminis-text-col {
+            display: flex;
+            flex-direction: column;
+            margin-left: 1px;
+        }
+        .geminis-main {
+            color: #231f20;
+            font-family: "Arial Black", Arial, sans-serif;
+            font-weight: 900;
+            font-size: 7px;
+            line-height: 1;
+            letter-spacing: -0.2px;
+        }
+        .geminis-sub {
+            color: #231f20;
+            font-family: "Arial Black", Arial, sans-serif;
+            font-weight: 900;
+            font-size: 3.5px;
+            line-height: 1;
+            margin-top: 1px;
+        }
+
         /* Custom Bernabo Logo CSS */
         .bernabo-logo {
             background-color: white; 
@@ -1274,7 +1308,26 @@
 
                 <!-- Fila 9 -->
                 <div class="drawer">
-                    <div class="logo-container"><img class="logo" src="https://www.google.com/s2/favicons?domain=servier.com&sz=128" alt="Servier" onerror="this.style.display='none'"></div>
+                    <div class="logo-container" style="flex-direction:row; gap:4px; width:100%;">
+                        <div style="box-shadow: 0 1px 2px rgba(0,0,0,0.2); border-radius: 4px; overflow: hidden; width:22px; height:22px; flex-shrink:0;">
+                            <svg viewBox="0 0 100 100" width="22" height="22">
+                                <rect x="0" y="0" width="100" height="100" fill="#25256e" />
+                                <path d="M 20 60 C 30 85, 70 85, 80 60" fill="none" stroke="white" stroke-width="12" stroke-linecap="round" />
+                                <path d="M 70 15 L 73 25 L 83 25 L 75 32 L 78 42 L 70 36 L 62 42 L 65 32 L 57 25 L 67 25 Z" fill="#eb4e41" />
+                            </svg>
+                        </div>
+                        <div class="geminis-logo">
+                            <svg viewBox="0 0 100 100" width="14" height="14" style="flex-shrink:0;">
+                                <path d="M 25 35 A 25 25 0 0 1 75 35 L 75 65 A 25 25 0 0 1 25 65 Z" fill="none" stroke="#231f20" stroke-width="12" />
+                                <path d="M 31 50 L 69 50 L 69 65 A 19 19 0 0 1 31 65 Z" fill="#008c50" />
+                                <line x1="25" y1="50" x2="75" y2="50" stroke="#231f20" stroke-width="8" />
+                            </svg>
+                            <div class="geminis-text-col">
+                                <div class="geminis-main">Géminis</div>
+                                <div class="geminis-sub">Farmacéutica</div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="label">Servier<br>Géminis</div>
                 </div>
                 <div class="drawer">
