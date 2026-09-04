@@ -35,6 +35,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
         .nav-logo {
             color: white;
@@ -77,32 +78,26 @@
         }
 
         .search-container {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
             width: 100%;
-            max-width: 1000px;
-            margin-bottom: 30px;
+            max-width: 600px;
         }
-
-        .search-input {
+        #searchInput {
             width: 100%;
-            padding: 15px 20px;
-            font-size: 16px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            background: white;
-            color: #333;
-            box-sizing: border-box;
+            max-width: 600px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: none;
             outline: none;
-            transition: border-color 0.3s, box-shadow 0.3s;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            font-size: 14px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
         }
-        
-        .search-input:focus {
-            border-color: #12439a;
-            box-shadow: 0 0 0 3px rgba(18, 67, 154, 0.2);
-        }
-        
-        .search-input::placeholder {
-            color: #999;
+        #searchInput:focus {
+            box-shadow: 0 0 0 2px rgba(243, 146, 0, 0.5), inset 0 1px 3px rgba(0,0,0,0.2);
         }
 
         .table-container {
@@ -173,16 +168,15 @@
     <nav class="tkl-nav">
         <div class="nav-container">
             <div class="nav-logo"></div>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Buscar por obra social o código..." autocomplete="off">
+            </div>
             <div class="nav-buttons">
                 <a href="index.html" class="nav-btn">Laboratorios</a>
                 <a href="obras_sociales.html" class="nav-btn active">Códigos</a>
             </div>
         </div>
     </nav>
-
-<div class="search-container">
-        <input type="text" id="searchInput" class="search-input" placeholder="Buscar por obra social o código...">
-    </div>
 
     <div class="table-container">
         <table id="dataTable">
