@@ -983,6 +983,37 @@
         .drawer.open .handle {
             box-shadow: 0 4px 6px rgba(0,0,0,0.3);
         }
+
+        /* Responsive tweaks */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 130px;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            .nav-container {
+                flex-direction: column;
+                height: auto;
+                padding: 10px;
+                gap: 10px;
+            }
+            .search-container {
+                position: relative;
+                left: auto;
+                transform: none;
+                width: 100%;
+                max-width: 100%;
+            }
+            #searchInput {
+                width: 100%;
+                max-width: 100%;
+            }
+            .nav-buttons {
+                width: 100%;
+                justify-content: center;
+                gap: 10px;
+            }
+        }
 </style>
 </head>
 <body>
