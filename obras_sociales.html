@@ -5,16 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Obras Sociales - Códigos</title>
     <style>
+        html {
+            box-sizing: border-box;
+            overflow-y: scroll;
+            scrollbar-gutter: stable;
+        }
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
         body {
             background-color: #f5f6f8;
             min-height: 100vh;
             margin: 0;
             font-family: "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
-            padding: 90px 20px 20px 20px;
+            padding: 85px 20px 20px 20px;
             color: #333;
             display: flex;
             flex-direction: column;
             align-items: center;
+            box-sizing: border-box;
         }
         
         /* TKL Navigation Bar */
@@ -84,20 +93,24 @@
             display: flex;
             align-items: center;
             width: 100%;
-            max-width: 600px;
+            max-width: 500px;
+            box-sizing: border-box;
         }
         #searchInput {
             width: 100%;
-            max-width: 600px;
+            max-width: 100%;
+            height: 38px;
             padding: 8px 16px;
             border-radius: 20px;
             border: none;
             outline: none;
-            font-size: 16px; /* Prevents mobile zoom */
+            font-size: 15px;
             box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
             box-sizing: border-box;
             -webkit-appearance: searchfield;
             appearance: searchfield;
+            flex: 1 1 auto;
+            min-width: 0;
         }
         #searchInput::-webkit-search-cancel-button {
             -webkit-appearance: searchfield-cancel-button;
@@ -115,6 +128,7 @@
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             border: 1px solid #eee;
+            box-sizing: border-box;
         }
 
         table {
@@ -154,6 +168,7 @@
             font-weight: bold;
             font-size: 14px;
             box-shadow: 0 2px 4px rgba(243, 146, 0, 0.3);
+            display: inline-block;
         }
 
         .loader {
@@ -165,20 +180,76 @@
         
         /* Responsive tweaks */
         @media (max-width: 768px) {
-            body { padding-top: 130px; padding-left: 6px; padding-right: 6px; }
-            .nav-container { flex-direction: column; height: auto; padding: 8px; gap: 8px; }
-            .search-container { position: relative; left: auto; transform: none; width: 100%; max-width: 100%; }
-            #searchInput { width: 100%; max-width: 100%; font-size: 16px; }
-            .nav-buttons { width: 100%; justify-content: center; gap: 8px; }
-            .table-container { overflow-x: auto; width: 100%; margin: 0; border-radius: 6px; }
-            th { padding: 8px 10px; font-size: 12px; letter-spacing: 0; }
-            td { padding: 8px 10px; font-size: 12px; }
-            .nav-btn { padding: 5px 10px; font-size: 12px; }
-            .code-badge { font-size: 11px; padding: 2px 7px; }
+            body {
+                padding-top: 115px;
+                padding-left: 6px;
+                padding-right: 6px;
+                overflow-x: hidden;
+            }
+            .nav-container {
+                flex-direction: column;
+                height: auto;
+                padding: 8px;
+                gap: 8px;
+            }
+            .nav-logo:empty {
+                display: none;
+            }
+            .search-container {
+                position: static;
+                left: auto;
+                transform: none;
+                width: 100%;
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            #searchInput {
+                width: 100%;
+                max-width: 100%;
+                font-size: 16px;
+                height: 38px;
+                box-sizing: border-box;
+            }
+            .nav-buttons {
+                width: 100%;
+                justify-content: center;
+                gap: 8px;
+            }
+            .table-container {
+                overflow-x: auto;
+                width: 100%;
+                margin: 0;
+                border-radius: 6px;
+            }
+            table {
+                min-width: 100%;
+            }
+            th {
+                padding: 8px 8px;
+                font-size: 12px;
+                letter-spacing: 0;
+                white-space: nowrap;
+            }
+            td {
+                padding: 8px 8px;
+                font-size: 12px;
+                word-break: break-word;
+            }
+            .nav-btn {
+                padding: 5px 12px;
+                font-size: 12px;
+            }
+            .code-badge {
+                font-size: 11px;
+                padding: 2px 6px;
+                white-space: nowrap;
+            }
         }
         @media (max-width: 400px) {
-            th { padding: 6px 8px; font-size: 11px; }
-            td { padding: 6px 8px; font-size: 11px; }
+            th { padding: 6px 6px; font-size: 11px; }
+            td { padding: 6px 6px; font-size: 11px; }
             .code-badge { font-size: 10px; padding: 2px 5px; }
         }
 </style>
