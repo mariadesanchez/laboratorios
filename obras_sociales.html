@@ -122,7 +122,7 @@
 
         .table-container {
             width: 100%;
-            max-width: 1000px;
+            max-width: 100%; /* ensure container fits viewport */
             background: white;
             border-radius: 8px;
             overflow-x: auto; /* enable horizontal scrolling when needed */
@@ -132,7 +132,7 @@
         }
 
         table {
-            width: max-content; /* allow table to expand based on content */
+            width: auto; /* let table size to content, container will scroll */ /* table fits container, will scroll if too wide */
             border-collapse: collapse;
             text-align: left;
         }
@@ -147,6 +147,8 @@
 
         td {
             padding: 15px 20px;
+            word-break: break-word; /* prevent long content from overflowing */
+            overflow-wrap: anywhere;
             border-bottom: 1px solid #eee;
             transition: background 0.2s;
         }
