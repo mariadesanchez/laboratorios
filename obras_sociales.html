@@ -125,14 +125,14 @@
             max-width: 1000px;
             background: white;
             border-radius: 8px;
-            overflow: hidden;
+            overflow-x: auto; /* enable horizontal scrolling when needed */
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             border: 1px solid #eee;
             box-sizing: border-box;
         }
 
         table {
-            width: 100%;
+            width: max-content; /* allow table to expand based on content */
             border-collapse: collapse;
             text-align: left;
         }
