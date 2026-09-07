@@ -1718,51 +1718,61 @@
         });
     </script>
 
-    <script>
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
+
+        const supabaseUrl = 'https://dystxhjrbozzecsapbdg.supabase.co';
+        const supabaseKey = 'TU_CLAVE_ANON_AQUI'; // ⚠️ DEBES PEGAR TU "anon public key" DE SUPABASE AQUÍ
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
         const searchInput = document.getElementById("searchInput");
-        
-        const drawers = {
-            "islotin": document.getElementById("drawer-craveri-7-2"),
-            "evoquin": document.getElementById("drawer-evoquin-4-4"),
-            "amixen": document.getElementById("drawer-amixen-1-1"),
-            "regulane": document.getElementById("drawer-regulane-5-1"),
-            "aliviafleb": document.getElementById("drawer-aliviafleb-3-5"),
-            "hexaler": document.getElementById("drawer-hexalercort-6-1"),
-            "hexaler cort": document.getElementById("drawer-hexalercort-6-1"),
-            "reliveran": document.getElementById("drawer-reliveran-2-3"),
-            "sildenafil": document.getElementById("drawer-sildenafil-9-5"),
-            "total magnesiano": document.getElementById("drawer-aldactonea-5-3"),
-            "aldactone": document.getElementById("drawer-aldactonea-5-3"),
-            "aldactone a": document.getElementById("drawer-aldactonea-5-3")
-        };
-        
+        const cajon1 = document.getElementById("drawer-amixen-1-1"); // Este es Fila 1 Columna 1
+        const allDrawers = document.querySelectorAll(".drawer");
+
+        let debounceTimeout;
+
         if (searchInput) {
             searchInput.addEventListener("input", (e) => {
-                const val = e.target.value.toLowerCase().trim();
+                const val = e.target.value.trim();
                 
-                // Reset all
-                Object.values(drawers).forEach(drawer => {
-                    if (drawer) {
-                        drawer.style.background = "";
-                        drawer.style.boxShadow = "";
-                        drawer.style.borderBottom = "";
-                        drawer.style.transform = "";
-                    }
+                // Limpiar resaltados previos en todos los cajones
+                allDrawers.forEach(drawer => {
+                    drawer.style.background = "";
+                    drawer.style.boxShadow = "";
+                    drawer.style.borderBottom = "";
+                    drawer.style.transform = "";
                 });
 
-                const highlightBg = "linear-gradient(to bottom, #ffaf33 0%, #f39200 100%)";
-                const highlightShadow = "0 0 15px rgba(243, 146, 0, 0.8), inset 0 2px 0 rgba(255,255,255,1)";
-                const highlightBorder = "2px solid #b36b00";
-                const highlightTransform = "translateY(-2px) scale(1.02)";
+                if (val.length < 2) return; // Buscar a partir de 2 caracteres
 
-                const targetDrawer = drawers[val];
-                if (targetDrawer) {
-                    targetDrawer.style.background = highlightBg;
-                    targetDrawer.style.boxShadow = highlightShadow;
-                    targetDrawer.style.borderBottom = highlightBorder;
-                    targetDrawer.style.transform = highlightTransform;
-                    targetDrawer.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
-                }
+                clearTimeout(debounceTimeout);
+                debounceTimeout = setTimeout(async () => {
+                    try {
+                        // Búsqueda parcial (ilike '%termino%') en la tabla "laboratorios"
+                        const { data, error } = await supabase
+                            .from('laboratorios')
+                            .select('cajon')
+                            .ilike('nombre_comercial', `%${val}%`);
+
+                        if (error) throw error;
+
+                        // Si hay resultados y alguno corresponde al cajón 1
+                        if (data && data.some(item => String(item.cajon) === "1" || item.cajon === 1)) {
+                            const highlightBg = "linear-gradient(to bottom, #ffaf33 0%, #f39200 100%)";
+                            const highlightShadow = "0 0 15px rgba(243, 146, 0, 0.8), inset 0 2px 0 rgba(255,255,255,1)";
+                            const highlightBorder = "2px solid #b36b00";
+                            const highlightTransform = "translateY(-2px) scale(1.02)";
+
+                            cajon1.style.background = highlightBg;
+                            cajon1.style.boxShadow = highlightShadow;
+                            cajon1.style.borderBottom = highlightBorder;
+                            cajon1.style.transform = highlightTransform;
+                            cajon1.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+                        }
+                    } catch (error) {
+                        console.error('Error buscando en Supabase:', error);
+                    }
+                }, 400); // 400ms de retraso (debounce) para no saturar la base de datos
             });
         }
     </script>
