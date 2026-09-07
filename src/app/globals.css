@@ -1574,3 +1574,46 @@
     font-size: 14px;
     color: #856404;
 }
+
+/* === EXTRA RESPONSIVE STYLES === */
+@media (max-width: 768px) {
+    /* Table (Códigos) responsiveness */
+    .table-wrapper {
+        padding: 110px 0 20px 0 !important; /* Full width, no side padding */
+    }
+    
+    .table-container {
+        border-radius: 0 !important;
+        border-left: none !important;
+        border-right: none !important;
+    }
+    
+    table {
+        width: 100% !important;
+        min-width: 100% !important;
+    }
+    
+    /* Ensure action buttons in table don't break layout */
+    th, td {
+        padding: 8px 4px !important;
+    }
+    
+    /* Cabinet (Laboratorios) responsiveness */
+    body {
+        padding: 100px 0 0 0 !important; /* Remove body padding on mobile */
+    }
+    
+    .cabinet-wrapper {
+        padding: 0 4px !important; 
+    }
+    
+    .drawer .label {
+        font-size: 8px !important; /* Make text smaller to fit 5 columns */
+        line-height: 1.1 !important;
+    }
+    
+    .drawer .logo-container svg, 
+    .drawer .logo-container img {
+        transform: scale(0.7); /* Scale down logos */
+    }
+}
