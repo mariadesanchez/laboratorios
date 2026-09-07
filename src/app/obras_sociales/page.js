@@ -70,10 +70,10 @@ export default function ObrasSociales() {
                                     filtered.map((row, i) => (
                                         <tr key={i}>
                                             <td>{row.obra_social}</td>
-                                            <td style={{ fontWeight: '700', color: '#12439a', letterSpacing: '0.5px' }}>
+                                            <td style={{ fontWeight: '700', color: '#000', background: '#f39200', borderRadius: '4px', padding: '4px 10px', display: 'inline-block', letterSpacing: '0.5px' }}>
                                                 {row.codigo}
                                             </td>
-                                            <td style={{ color: '#c0392b', fontSize: '13px' }}>
+                                            <td style={{ fontWeight: '700', fontSize: '13px' }}>
                                                 {row.nota || ''}
                                             </td>
                                         </tr>
