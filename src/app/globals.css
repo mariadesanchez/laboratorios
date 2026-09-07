@@ -1530,3 +1530,47 @@
             td { padding: 6px 6px; font-size: 11px; }
             .code-badge { font-size: 10px; padding: 2px 5px; }
         }
+
+/* === OBRAS SOCIALES NEXT.JS PAGE STYLES === */
+.table-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    padding: 85px 20px 40px 20px;
+    box-sizing: border-box;
+    background-color: #f5f6f8;
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+}
+
+.loading-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 80px 20px;
+    font-size: 16px;
+    color: #666;
+}
+
+.spinner {
+    width: 28px;
+    height: 28px;
+    border: 3px solid #e0e0e0;
+    border-top-color: #12439a;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.error-message {
+    margin: 40px auto;
+    max-width: 600px;
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 8px;
+    padding: 20px 24px;
+    font-size: 14px;
+    color: #856404;
+}
