@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 import Navbar from '@/components/Navbar';
+import { useAuth } from '@/hooks/useAuth';
 
 const EMPTY_ROW = { obra_social: '', codigo: '', nota: '' };
 
@@ -10,6 +11,7 @@ export default function ObrasSociales() {
     const [codigos, setCodigos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const { isAdmin } = useAuth();
 
     // Modal state
     const [modal, setModal] = useState(null); // null | { mode: 'add' | 'edit' | 'delete', row: {} }
@@ -129,20 +131,22 @@ export default function ObrasSociales() {
 
             <div className="table-wrapper">
                 {/* Header with Add button */}
-                <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '16px' }}>
-                    <button onClick={openAdd} style={{
-                        background: '#f39200', color: '#000', border: 'none',
-                        padding: '10px 20px', borderRadius: '20px', fontWeight: '700',
-                        fontSize: '14px', cursor: 'pointer', display: 'flex', alignItems: 'center',
-                        gap: '8px', boxShadow: '0 2px 8px rgba(243,146,0,0.4)',
-                        transition: 'all 0.2s',
-                    }}
-                    onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-1px)'}
-                    onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
-                    >
-                        + Agregar Obra Social
-                    </button>
-                </div>
+                {isAdmin && (
+                    <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '16px' }}>
+                        <button onClick={openAdd} style={{
+                            background: '#f39200', color: '#000', border: 'none',
+                            padding: '10px 20px', borderRadius: '20px', fontWeight: '700',
+                            fontSize: '14px', cursor: 'pointer', display: 'flex', alignItems: 'center',
+                            gap: '8px', boxShadow: '0 2px 8px rgba(243,146,0,0.4)',
+                            transition: 'all 0.2s',
+                        }}
+                        onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-1px)'}
+                        onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
+                        >
+                            + Agregar Obra Social
+                        </button>
+                    </div>
+                )}
 
                 {loading && (
                     <div className="loading-message">
@@ -161,14 +165,14 @@ export default function ObrasSociales() {
                                     <th>Obra Social</th>
                                     <th style={{ width: '110px', textAlign: 'center' }}>Código</th>
                                     <th>Nota</th>
-                                    <th style={{ width: '70px', textAlign: 'center' }}>Editar</th>
-                                    <th style={{ width: '70px', textAlign: 'center' }}>Eliminar</th>
+                                    {isAdmin && <th style={{ width: '70px', textAlign: 'center' }}>Editar</th>}
+                                    {isAdmin && <th style={{ width: '70px', textAlign: 'center' }}>Eliminar</th>}
                                 </tr>
                             </thead>
                             <tbody>
                                 {filtered.length === 0 ? (
                                     <tr>
-                                        <td colSpan={5} style={{ textAlign: 'center', color: '#888', padding: '40px' }}>
+                                        <td colSpan={isAdmin ? 5 : 3} style={{ textAlign: 'center', color: '#888', padding: '40px' }}>
                                             No se encontraron resultados{searchTerm ? ` para "${searchTerm}"` : ''}.
                                         </td>
                                     </tr>
@@ -195,50 +199,54 @@ export default function ObrasSociales() {
                                             <td style={{ fontWeight: '700', fontSize: '13px' }}>
                                                 {row.nota || ''}
                                             </td>
-                                            <td style={{ textAlign: 'center' }}>
-                                                <button
-                                                    onClick={() => openEdit(row)}
-                                                    title="Editar"
-                                                    style={{
-                                                        background: 'none', border: 'none',
-                                                        cursor: 'pointer', fontSize: '18px',
-                                                        padding: '4px', lineHeight: 1,
-                                                        filter: 'brightness(0)',
-                                                    }}
-                                                >
-                                                    ✏️
-                                                </button>
-                                            </td>
-                                            <td style={{ textAlign: 'center' }}>
-                                                <button
-                                                    onClick={async () => {
-                                                        if (window.confirm(`¿Deseas eliminar "${row.obra_social}"?`)) {
-                                                            setModal({ mode: 'delete', row });
-                                                            setSaving(true);
-                                                            try {
-                                                                const { error } = await supabase.from('codigos').delete().eq('id', row.id);
-                                                                if (error) throw error;
-                                                                showToast('🗑️ Fila eliminada');
-                                                                await fetchCodigos();
-                                                            } catch (err) {
-                                                                showToast('❌ Error: ' + err.message, 'error');
-                                                            } finally {
-                                                                setSaving(false);
-                                                                setModal(null);
+                                            {isAdmin && (
+                                                <td style={{ textAlign: 'center' }}>
+                                                    <button
+                                                        onClick={() => openEdit(row)}
+                                                        title="Editar"
+                                                        style={{
+                                                            background: 'none', border: 'none',
+                                                            cursor: 'pointer', fontSize: '18px',
+                                                            padding: '4px', lineHeight: 1,
+                                                            filter: 'brightness(0)',
+                                                        }}
+                                                    >
+                                                        ✏️
+                                                    </button>
+                                                </td>
+                                            )}
+                                            {isAdmin && (
+                                                <td style={{ textAlign: 'center' }}>
+                                                    <button
+                                                        onClick={async () => {
+                                                            if (window.confirm(`¿Deseas eliminar "${row.obra_social}"?`)) {
+                                                                setModal({ mode: 'delete', row });
+                                                                setSaving(true);
+                                                                try {
+                                                                    const { error } = await supabase.from('codigos').delete().eq('id', row.id);
+                                                                    if (error) throw error;
+                                                                    showToast('🗑️ Fila eliminada');
+                                                                    await fetchCodigos();
+                                                                } catch (err) {
+                                                                    showToast('❌ Error: ' + err.message, 'error');
+                                                                } finally {
+                                                                    setSaving(false);
+                                                                    setModal(null);
+                                                                }
                                                             }
-                                                        }
-                                                    }}
-                                                    title="Eliminar"
-                                                    style={{
-                                                        background: 'none', border: 'none',
-                                                        cursor: 'pointer', fontSize: '18px',
-                                                        padding: '4px', lineHeight: 1,
-                                                        color: '#c0392b',
-                                                    }}
-                                                >
-                                                    🗑️
-                                                </button>
-                                            </td>
+                                                        }}
+                                                        title="Eliminar"
+                                                        style={{
+                                                            background: 'none', border: 'none',
+                                                            cursor: 'pointer', fontSize: '18px',
+                                                            padding: '4px', lineHeight: 1,
+                                                            color: '#c0392b',
+                                                        }}
+                                                    >
+                                                        🗑️
+                                                    </button>
+                                                </td>
+                                            )}
                                         </tr>
                                     ))
                                 )}
