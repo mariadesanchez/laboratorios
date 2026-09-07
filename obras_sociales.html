@@ -123,10 +123,11 @@
 
         .table-container {
             width: 100%;
-            max-width: 100%; /* ensure container fits viewport */
+            max-width: none; /* allow container to grow for scroll */
             background: white;
             border-radius: 8px;
-            overflow-x: auto; /* enable horizontal scrolling when needed */
+            overflow-x: auto; /* horizontal scroll when needed */
+            overflow-y: visible; /* allow zoomed cells to be visible vertically */
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             border: 1px solid #eee;
             box-sizing: border-box;
@@ -149,20 +150,23 @@
 
         td {
         padding: 15px 20px;
-        word-break: break-word; /* prevent long content from overflowing */
-        overflow-wrap: anywhere;
-        border-bottom: 1px solid #eee;
-        transition: background 0.2s, transform 0.2s ease;
-        /* Hover zoom */
-        cursor: pointer;
-    }
-    td:hover {
-        background: #e0f7ff;
-        transform: scale(2.0);
-        transform-origin: center;
-        z-index: 10;
-        box-shadow: 0 8px 16px rgba(0,0,0,0.4);
-    }
+            padding: 15px 20px;
+            word-break: break-word; /* prevent long content from overflowing */
+            overflow-wrap: anywhere;
+            border-bottom: 1px solid #eee;
+            transition: transform 0.2s ease, background 0.2s ease;
+            position: relative;
+            z-index: 1;
+            /* Hover zoom */
+            cursor: pointer;
+        }
+        td:hover {
+            background: #f5f5f5;
+            transform: scale(2);
+            /* zoom effect */
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
 
         tr:hover td {
             background: #f8f9fa;
