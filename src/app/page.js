@@ -51,7 +51,14 @@ export default function Home() {
         // e.currentTarget.classList.toggle('open');
         const drawerElement = e.currentTarget;
         const parent = drawerElement.parentNode;
-        const cajonNumber = Array.from(parent.children).indexOf(drawerElement) + 1;
+        // Numeración: arriba → abajo, izquierda → derecha (columna por columna)
+        // Grid: 5 columnas × 9 filas = 45 cajones
+        const COLS = 5;
+        const ROWS = 9;
+        const arrayIndex = Array.from(parent.children).indexOf(drawerElement);
+        const col = arrayIndex % COLS;   // columna 0..4
+        const row = Math.floor(arrayIndex / COLS); // fila 0..8
+        const cajonNumber = col * ROWS + row + 1;
 
         setDrawerModal({ open: true, cajon: cajonNumber });
         setLoadingMeds(true);
