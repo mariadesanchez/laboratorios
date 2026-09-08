@@ -60,7 +60,7 @@ export default function Home() {
         try {
             const { data, error } = await supabase
                 .from('laboratorios')
-                .select('nombre_comercial, presentacion')
+                .select('nombre_comercial')
                 .eq('cajon', cajonNumber)
                 .order('nombre_comercial', { ascending: true });
 
@@ -739,7 +739,6 @@ export default function Home() {
                             {drawerMeds.map((med, i) => (
                                 <li key={i} style={{ marginBottom: '8px', fontSize: '15px' }}>
                                     <strong>{med.nombre_comercial}</strong> 
-                                    {med.presentacion && <span style={{ color: '#666', fontSize: '13px' }}> - {med.presentacion}</span>}
                                 </li>
                             ))}
                         </ul>
