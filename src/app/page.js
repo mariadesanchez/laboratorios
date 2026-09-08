@@ -7,6 +7,11 @@ export default function Home() {
     const [searchTerm, setSearchTerm] = useState('');
     const [drawerAmixen11Style, setDrawerAmixen11Style] = useState({});
 
+    // Modal state
+    const [drawerModal, setDrawerModal] = useState({ open: false, cajon: null });
+    const [drawerMeds, setDrawerMeds] = useState([]);
+    const [loadingMeds, setLoadingMeds] = useState(false);
+
     useEffect(() => {
         const val = searchTerm.trim();
 
@@ -42,8 +47,30 @@ export default function Home() {
         return () => clearTimeout(timer);
     }, [searchTerm]);
 
-    const handleDrawerClick = (e) => {
-        e.currentTarget.classList.toggle('open');
+    const handleDrawerClick = async (e) => {
+        // e.currentTarget.classList.toggle('open');
+        const drawerElement = e.currentTarget;
+        const parent = drawerElement.parentNode;
+        const cajonNumber = Array.from(parent.children).indexOf(drawerElement) + 1;
+
+        setDrawerModal({ open: true, cajon: cajonNumber });
+        setLoadingMeds(true);
+        setDrawerMeds([]);
+
+        try {
+            const { data, error } = await supabase
+                .from('laboratorios')
+                .select('nombre_comercial, presentacion')
+                .eq('cajon', cajonNumber)
+                .order('nombre_comercial', { ascending: true });
+
+            if (error) throw error;
+            setDrawerMeds(data || []);
+        } catch (err) {
+            console.error('Error fetching meds for cajon:', err);
+        } finally {
+            setLoadingMeds(false);
+        }
     };
 
     return (
@@ -677,8 +704,54 @@ export default function Home() {
         </div>
     </div>
 
-
-    
-        </>
+    {/* Drawer Modal */}
+    {drawerModal.open && (
+        <div style={{
+            position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            zIndex: 1000, padding: '20px',
+        }}>
+            <div style={{
+                background: 'white', borderRadius: '12px', padding: '24px',
+                width: '100%', maxWidth: '400px',
+                boxShadow: '0 20px 60px rgba(0,0,0,0.4)',
+                animation: 'fadeIn 0.2s ease',
+                position: 'relative'
+            }}>
+                <button 
+                    onClick={() => setDrawerModal({ open: false, cajon: null })}
+                    style={{
+                        position: 'absolute', top: '16px', right: '16px',
+                        background: 'none', border: 'none', fontSize: '20px',
+                        cursor: 'pointer', color: '#666',
+                    }}
+                >
+                    ✕
+                </button>
+                <h2 style={{ margin: '0 0 16px', color: '#12439a', fontSize: '22px' }}>
+                    Cajón {drawerModal.cajon}
+                </h2>
+                <div style={{ maxHeight: '400px', overflowY: 'auto', paddingRight: '8px' }}>
+                    {loadingMeds ? (
+                        <div style={{ textAlign: 'center', padding: '20px', color: '#666' }}>Cargando...</div>
+                    ) : drawerMeds.length > 0 ? (
+                        <ul style={{ margin: 0, padding: '0 0 0 20px', color: '#333' }}>
+                            {drawerMeds.map((med, i) => (
+                                <li key={i} style={{ marginBottom: '8px', fontSize: '15px' }}>
+                                    <strong>{med.nombre_comercial}</strong> 
+                                    {med.presentacion && <span style={{ color: '#666', fontSize: '13px' }}> - {med.presentacion}</span>}
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <div style={{ textAlign: 'center', padding: '20px', color: '#888', fontStyle: 'italic' }}>
+                            Este cajón no tiene medicamentos registrados.
+                        </div>
+                    )}
+                </div>
+            </div>
+        </div>
+    )}
+</>
     );
 }
