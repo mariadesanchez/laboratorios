@@ -5,7 +5,34 @@ import Navbar from '@/components/Navbar';
 
 export default function Home() {
     const [searchTerm, setSearchTerm] = useState('');
-    const [drawerAmixen11Style, setDrawerAmixen11Style] = useState({});
+    // Set de cajones a resaltar (puede ser más de uno)
+    const [highlightedCajones, setHighlightedCajones] = useState(new Set());
+
+    // Grid: 5 columnas × 9 filas = 45 cajones
+    // Numeración: arriba→abajo primero, luego izquierda→derecha (columna por columna)
+    const COLS = 5;
+    const ROWS = 9;
+
+    // Convierte índice de array → número de cajón
+    const arrayIndexToCajon = (arrayIndex) => {
+        const col = arrayIndex % COLS;
+        const row = Math.floor(arrayIndex / COLS);
+        return col * ROWS + row + 1;
+    };
+
+    // Devuelve el estilo naranja si el cajón está resaltado, o {} si no
+    const getDrawerStyle = (arrayIndex) => {
+        const cajonNum = arrayIndexToCajon(arrayIndex);
+        if (highlightedCajones.has(cajonNum)) {
+            return {
+                background: 'linear-gradient(to bottom, #ffaf33 0%, #f39200 100%)',
+                boxShadow: '0 0 15px rgba(243, 146, 0, 0.8), inset 0 2px 0 rgba(255,255,255,1)',
+                borderBottom: '2px solid #b36b00',
+                transform: 'translateY(-2px) scale(1.02)'
+            };
+        }
+        return {};
+    };
 
     // Modal state
     const [drawerModal, setDrawerModal] = useState({ open: false, cajon: null });
@@ -17,7 +44,7 @@ export default function Home() {
 
         const timer = setTimeout(async () => {
             if (val.length < 2) {
-                setDrawerAmixen11Style({});
+                setHighlightedCajones(new Set());
                 return;
             }
             try {
@@ -28,16 +55,24 @@ export default function Home() {
 
                 if (error) throw error;
 
-                if (data && data.some(item => item.cajon === 1)) {
-                    setDrawerAmixen11Style({
-                        background: 'linear-gradient(to bottom, #ffaf33 0%, #f39200 100%)',
-                        boxShadow: '0 0 15px rgba(243, 146, 0, 0.8), inset 0 2px 0 rgba(255,255,255,1)',
-                        borderBottom: '2px solid #b36b00',
-                        transform: 'translateY(-2px) scale(1.02)'
-                    });
-                    document.getElementById('drawer-amixen-1-1')?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+                if (data && data.length > 0) {
+                    const cajones = new Set(data.map(item => item.cajon));
+                    setHighlightedCajones(cajones);
+
+                    // Scroll al primer cajón encontrado
+                    const firstCajon = [...cajones][0];
+                    // Convertir número de cajón → índice de array (inverso de arrayIndexToCajon)
+                    // cajon = col * ROWS + row + 1 → col = Math.floor((cajon-1)/ROWS), row = (cajon-1) % ROWS
+                    const col = Math.floor((firstCajon - 1) / ROWS);
+                    const row = (firstCajon - 1) % ROWS;
+                    const arrayIdx = row * COLS + col;
+                    const gridEl = document.querySelector('.grid');
+                    if (gridEl) {
+                        const drawers = gridEl.querySelectorAll('.drawer');
+                        drawers[arrayIdx]?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+                    }
                 } else {
-                    setDrawerAmixen11Style({});
+                    setHighlightedCajones(new Set());
                 }
             } catch (err) {
                 console.error('Error buscando en Supabase:', err);
@@ -93,7 +128,7 @@ export default function Home() {
             <div className="grid">
                 
                 
-                <div className="drawer" style={drawerAmixen11Style} onClick={handleDrawerClick} id="drawer-amixen-1-1">
+                <div className="drawer" style={getDrawerStyle(0)} onClick={handleDrawerClick} id="drawer-amixen-1-1">
                     <div className="logo-container">
                         <div className="bernabo-logo">
                             <svg viewBox="0 0 100 100" width="20" height="20">
@@ -114,7 +149,7 @@ export default function Home() {
                     </div>
                     <div className="label">Bernabó</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(1)} onClick={handleDrawerClick}>
                     <div className="logo-container">
                         <div className="sanitas-logo">
                             <div className="sanitas-s-icon">[S]</div>
@@ -123,7 +158,7 @@ export default function Home() {
                     </div>
                     <div className="label">Sanitas</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(2)} onClick={handleDrawerClick}>
                     <div className="logo-container">
                         <svg viewBox="0 0 100 40" width="70" height="28"
                             style={{"filter":"drop-shadow(0 1px 2px rgba(0,0,0,0.2))","marginTop":"2px"}}>
@@ -162,7 +197,7 @@ export default function Home() {
                     </div>
                     <div className="label category">Estupefacientes</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(3)} onClick={handleDrawerClick}>
                     <div className="logo-container" style={{"flexDirection":"row","gap":"4px","width":"100%"}}>
                         <div className="alcon-logo">
                             <div className="alcon-text">Alcon</div>
@@ -173,7 +208,7 @@ export default function Home() {
                     </div>
                     <div className="label">Poen Gotas<br />Denver Gotas</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(4)} onClick={handleDrawerClick}>
                     <div className="logo-container">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"
                             width="34" height="34"
@@ -183,13 +218,13 @@ export default function Home() {
                 </div>
 
                 
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(5)} onClick={handleDrawerClick}>
                     <div className="logo-container"><img className="logo"
                             src="https://www.google.com/s2/favicons?domain=andromaco.com&sz=128" alt="Andrómaco"
                             onError={(e) => { e.currentTarget.style.display='none'; }} /></div>
                     <div className="label">Andrómaco<br />Microsules</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(6)} onClick={handleDrawerClick}>
                     <div className="logo-container">
                         <div className="adium-logo"
                             style={{"width":"70px","background":"white","border":"1px solid #e0e0e0","display":"flex","alignItems":"center","justifyContent":"center","borderRadius":"2px","height":"24px","padding":"0 2px","boxShadow":"0 1px 2px rgba(0,0,0,0.1)"}}>
@@ -203,7 +238,7 @@ export default function Home() {
                     </div>
                     <div className="label">Rafo (Adium)</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick} id="drawer-reliveran-2-3">
+                <div className="drawer" style={getDrawerStyle(7)} onClick={handleDrawerClick} id="drawer-reliveran-2-3">
                     <div className="logo-container" style={{"flexDirection":"row","gap":"4px","width":"100%"}}>
                         <div className="gador-logo" style={{"width":"65px"}}>
                             <div className="gador-cross">
@@ -226,11 +261,11 @@ export default function Home() {
                     </div>
                     <div className="label">Gador<br />Novartis</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(8)} onClick={handleDrawerClick}>
                     <div className="logo-container"></div>
                     <div className="label">Gotas</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(9)} onClick={handleDrawerClick}>
                     <div className="logo-container"><img className="logo"
                             src="https://www.google.com/s2/favicons?domain=ariston.com.ar&sz=128" alt="Ariston"
                             onError={(e) => { e.currentTarget.style.display='none'; }} /></div>
@@ -238,7 +273,7 @@ export default function Home() {
                 </div>
 
                 
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(10)} onClick={handleDrawerClick}>
                     <div className="logo-container">
                         <div className="lazar-logo">
                             <div className="lazar-box"><span className="lazar-l">L</span></div>
@@ -247,7 +282,7 @@ export default function Home() {
                     </div>
                     <div className="label">Lazar</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(11)} onClick={handleDrawerClick}>
                     <div className="logo-container" style={{"flexDirection":"row","gap":"4px","width":"100%"}}>
                         <div className="adium-logo"
                             style={{"width":"65px","background":"white","border":"1px solid #e0e0e0","display":"flex","alignItems":"center","justifyContent":"center","borderRadius":"2px","height":"24px","padding":"0 2px","boxShadow":"0 1px 2px rgba(0,0,0,0.1)"}}>
@@ -268,7 +303,7 @@ export default function Home() {
                     </div>
                     <div className="label">Raffo<br />Nolter</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(12)} onClick={handleDrawerClick}>
                     <div className="logo-container">
                         <div className="temis-logo">
                             <svg viewBox="0 0 24 24" width="14" height="14" style={{"marginBottom":"1px"}}>
@@ -281,13 +316,13 @@ export default function Home() {
                     </div>
                     <div className="label">Temis Lostalo</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick} id="drawer-totalmagnesiano-3-4">
+                <div className="drawer" style={getDrawerStyle(13)} onClick={handleDrawerClick} id="drawer-totalmagnesiano-3-4">
                     <div className="logo-container"><img className="logo"
                             src="https://www.google.com/s2/favicons?domain=gsk.com&sz=128" alt="Glaxo"
                             onError={(e) => { e.currentTarget.style.display='none'; }} /></div>
                     <div className="label">Glaxo</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick} id="drawer-aliviafleb-3-5">
+                <div className="drawer" style={getDrawerStyle(14)} onClick={handleDrawerClick} id="drawer-aliviafleb-3-5">
                     <div className="logo-container" style={{"flexDirection":"row","gap":"4px","width":"100%"}}>
                         <div className="denver-logo">
                             <div className="denver-text">DF</div>
@@ -297,7 +332,7 @@ export default function Home() {
                 </div>
 
                 
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(15)} onClick={handleDrawerClick}>
                     <div className="logo-container">
                         <div className="lazar-logo">
                             <div className="lazar-box"><span className="lazar-l">L</span></div>
@@ -306,7 +341,7 @@ export default function Home() {
                     </div>
                     <div className="label">Lazar</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(16)} onClick={handleDrawerClick}>
                     <div className="logo-container">
                         <div className="adium-logo"
                             style={{"width":"70px","background":"white","border":"1px solid #e0e0e0","display":"flex","alignItems":"center","justifyContent":"center","borderRadius":"2px","height":"24px","padding":"0 2px","boxShadow":"0 1px 2px rgba(0,0,0,0.1)"}}>
@@ -320,7 +355,7 @@ export default function Home() {
                     </div>
                     <div className="label">Raffo(Adium)</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(17)} onClick={handleDrawerClick}>
                     <div className="logo-container">
                         <div className="temis-logo">
                             <svg viewBox="0 0 24 24" width="14" height="14" style={{"marginBottom":"1px"}}>
@@ -333,13 +368,13 @@ export default function Home() {
                     </div>
                     <div className="label">Temis Lostalo</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick} id="drawer-evoquin-4-4">
+                <div className="drawer" style={getDrawerStyle(18)} onClick={handleDrawerClick} id="drawer-evoquin-4-4">
                     <div className="logo-container"><img className="logo"
                             src="https://www.google.com/s2/favicons?domain=tevapharm.com&sz=128" alt="Teva"
                             onError={(e) => { e.currentTarget.style.display='none'; }} /></div>
                     <div className="label">Teva</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(19)} onClick={handleDrawerClick}>
                     <div className="logo-container">
                         <div className="richmond-logo">
                             <div className="richmond-icon">
@@ -361,13 +396,13 @@ export default function Home() {
                 </div>
 
                 
-                <div className="drawer" onClick={handleDrawerClick} id="drawer-regulane-5-1">
+                <div className="drawer" style={getDrawerStyle(20)} onClick={handleDrawerClick} id="drawer-regulane-5-1">
                     <div className="logo-container"><img className="logo"
                             src="https://www.google.com/s2/favicons?domain=finadiet.com.ar&sz=128" alt="Finadiet"
                             onError={(e) => { e.currentTarget.style.display='none'; }} /></div>
                     <div className="label">Finadiet</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(21)} onClick={handleDrawerClick}>
                     <div className="logo-container" style={{"flexDirection":"row","gap":"4px","width":"100%"}}>
                         <div className="adium-logo"
                             style={{"width":"65px","background":"white","border":"1px solid #e0e0e0","display":"flex","alignItems":"center","justifyContent":"center","borderRadius":"2px","height":"24px","padding":"0 2px","boxShadow":"0 1px 2px rgba(0,0,0,0.1)"}}>
@@ -388,7 +423,7 @@ export default function Home() {
                     </div>
                     <div className="label">Raffo<br />Nolter</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick} id="drawer-aldactonea-5-3">
+                <div className="drawer" style={getDrawerStyle(22)} onClick={handleDrawerClick} id="drawer-aldactonea-5-3">
                     <div className="logo-container">
                         <div className="pfizer-logo">
                             <div className="pfizer-text">Pfizer</div>
@@ -396,13 +431,13 @@ export default function Home() {
                     </div>
                     <div className="label">Pfizer</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(23)} onClick={handleDrawerClick}>
                     <div className="logo-container"><img className="logo"
                             src="https://www.google.com/s2/favicons?domain=tevapharm.com&sz=128" alt="Teva"
                             onError={(e) => { e.currentTarget.style.display='none'; }} /></div>
                     <div className="label">Teva</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(24)} onClick={handleDrawerClick}>
                     <div className="logo-container" style={{"flexDirection":"row","gap":"4px","width":"100%"}}>
                         <div className="galderma-logo">
                             <div className="galderma-text-container">
@@ -434,13 +469,13 @@ export default function Home() {
                 </div>
 
                 
-                <div className="drawer" onClick={handleDrawerClick} id="drawer-hexalercort-6-1">
+                <div className="drawer" style={getDrawerStyle(25)} onClick={handleDrawerClick} id="drawer-hexalercort-6-1">
                     <div className="logo-container"><img className="logo"
                             src="https://www.google.com/s2/favicons?domain=siegfried.com.ar&sz=128" alt="Siegfried"
                             onError={(e) => { e.currentTarget.style.display='none'; }} /></div>
                     <div className="label">Siegfried</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(26)} onClick={handleDrawerClick}>
                     <div className="logo-container" style={{"flexDirection":"row","gap":"4px","width":"100%"}}>
                         <div className="adium-logo"
                             style={{"width":"65px","background":"white","border":"1px solid #e0e0e0","display":"flex","alignItems":"center","justifyContent":"center","borderRadius":"2px","height":"24px","padding":"0 2px","boxShadow":"0 1px 2px rgba(0,0,0,0.1)"}}>
@@ -461,7 +496,7 @@ export default function Home() {
                     </div>
                     <div className="label">Raffo<br />Nolter</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(27)} onClick={handleDrawerClick}>
                     <div className="logo-container">
                         <div className="pfizer-logo">
                             <div className="pfizer-text">Pfizer</div>
@@ -469,13 +504,13 @@ export default function Home() {
                     </div>
                     <div className="label">Pfizer<br />Rontang</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(28)} onClick={handleDrawerClick}>
                     <div className="logo-container"><img className="logo"
                             src="https://www.google.com/s2/favicons?domain=trbpharma.com.ar&sz=128" alt="TRB"
                             onError={(e) => { e.currentTarget.style.display='none'; }} /></div>
                     <div className="label">TRB</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(29)} onClick={handleDrawerClick}>
                     <div className="logo-container">
                         <div className="richet-logo">
                             <div className="richet-icon">
@@ -496,13 +531,13 @@ export default function Home() {
                 </div>
 
                 
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(30)} onClick={handleDrawerClick}>
                     <div className="logo-container"><img className="logo"
                             src="https://www.google.com/s2/favicons?domain=siegfried.com.ar&sz=128" alt="Siegfried"
                             onError={(e) => { e.currentTarget.style.display='none'; }} /></div>
                     <div className="label">Siegfried</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick} id="drawer-craveri-7-2">
+                <div className="drawer" style={getDrawerStyle(31)} onClick={handleDrawerClick} id="drawer-craveri-7-2">
                     <div className="logo-container">
                         <div className="craveri-logo">
                             <div className="craveri-text">CRAVERI</div>
@@ -510,7 +545,7 @@ export default function Home() {
                     </div>
                     <div className="label">Craveri</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(32)} onClick={handleDrawerClick}>
                     <div className="logo-container" style={{"flexDirection":"row","gap":"6px","width":"100%"}}>
                         <div className="sanofi-logo" style={{"width":"50px"}}>
                             <div className="sanofi-text" style={{"fontSize":"7px"}}>sanofi aventis</div>
@@ -523,13 +558,13 @@ export default function Home() {
                     </div>
                     <div className="label">Sanofi<br />Panalab</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(33)} onClick={handleDrawerClick}>
                     <div className="logo-container"><img className="logo"
                             src="https://www.google.com/s2/favicons?domain=trbpharma.com.ar&sz=128" alt="TRB"
                             onError={(e) => { e.currentTarget.style.display='none'; }} /></div>
                     <div className="label">TRB</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(34)} onClick={handleDrawerClick}>
                     <div className="logo-container">
                         <div className="richet-logo">
                             <div className="richet-icon">
@@ -550,13 +585,13 @@ export default function Home() {
                 </div>
 
                 
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(35)} onClick={handleDrawerClick}>
                     <div className="logo-container"><img className="logo"
                             src="https://www.google.com/s2/favicons?domain=siegfried.com.ar&sz=128" alt="Siegfried"
                             onError={(e) => { e.currentTarget.style.display='none'; }} /></div>
                     <div className="label">Siegfried</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(36)} onClick={handleDrawerClick}>
                     <div className="logo-container">
                         <div className="craveri-logo">
                             <div className="craveri-text">CRAVERI</div>
@@ -564,7 +599,7 @@ export default function Home() {
                     </div>
                     <div className="label">Craveri<br />Rossmore</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(37)} onClick={handleDrawerClick}>
                     <div className="logo-container">
                         <div className="panalab-logo"
                             style={{"background":"#1b4185","width":"26px","height":"26px","borderRadius":"4px","display":"flex","alignItems":"center","justifyContent":"center","color":"white","fontFamily":"Georgia, serif","fontSize":"18px","fontWeight":"normal","lineHeight":"1","boxShadow":"0 1px 2px rgba(0,0,0,0.2)"}}>
@@ -573,7 +608,7 @@ export default function Home() {
                     </div>
                     <div className="label">Panalab</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(38)} onClick={handleDrawerClick}>
                     <div className="logo-container">
                         <div className="dominguez-logo">
                             <div className="dominguez-d">D</div>
@@ -582,7 +617,7 @@ export default function Home() {
                     </div>
                     <div className="label">Dominguez</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(39)} onClick={handleDrawerClick}>
                     <div className="logo-container"><img className="logo"
                             src="https://www.google.com/s2/favicons?domain=eurofarma.com.ar&sz=128" alt="Eurofarma"
                             onError={(e) => { e.currentTarget.style.display='none'; }} /></div>
@@ -590,7 +625,7 @@ export default function Home() {
                 </div>
 
                 
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(40)} onClick={handleDrawerClick}>
                     <div className="logo-container" style={{"flexDirection":"row","gap":"4px","width":"100%"}}>
                         <div
                             style={{"boxShadow":"0 1px 2px rgba(0,0,0,0.2)","borderRadius":"4px","overflow":"hidden","width":"22px","height":"22px","flexShrink":"0"}}>
@@ -618,7 +653,7 @@ export default function Home() {
                     </div>
                     <div className="label">Servier<br />Géminis</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(41)} onClick={handleDrawerClick}>
                     <div className="logo-container" style={{"flexDirection":"row","gap":"4px","width":"100%"}}>
                         <div className="chobet-logo" style={{"width":"65px"}}>
                             <div className="chobet-left">
@@ -642,7 +677,7 @@ export default function Home() {
                     </div>
                     <div className="label">Chobet<br />Mar</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(42)} onClick={handleDrawerClick}>
                     <div className="logo-container">
                         <div className="panalab-logo"
                             style={{"background":"#1b4185","width":"26px","height":"26px","borderRadius":"4px","display":"flex","alignItems":"center","justifyContent":"center","color":"white","fontFamily":"Georgia, serif","fontSize":"18px","fontWeight":"normal","lineHeight":"1","boxShadow":"0 1px 2px rgba(0,0,0,0.2)"}}>
@@ -651,7 +686,7 @@ export default function Home() {
                     </div>
                     <div className="label">Panalab</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick}>
+                <div className="drawer" style={getDrawerStyle(43)} onClick={handleDrawerClick}>
                     <div className="logo-container" style={{"flexDirection":"row","gap":"4px","width":"100%"}}>
                         <div style={{"display":"flex","flexDirection":"column","alignItems":"center"}}>
                             <img className="logo" src="https://www.google.com/s2/favicons?domain=fecofar.com.ar&sz=128"
@@ -666,7 +701,7 @@ export default function Home() {
                     </div>
                     <div className="label">Fecofar<br />Eurolab</div>
                 </div>
-                <div className="drawer" onClick={handleDrawerClick} id="drawer-sildenafil-9-5">
+                <div className="drawer" style={getDrawerStyle(44)} onClick={handleDrawerClick} id="drawer-sildenafil-9-5">
                     <div className="logo-container">
                         <svg viewBox="0 0 100 100" width="40" height="40"
                             style={{"filter":"drop-shadow(0 2px 3px rgba(0,0,0,0.2))","marginTop":"2px"}}>
