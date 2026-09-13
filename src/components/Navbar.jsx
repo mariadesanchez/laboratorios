@@ -21,7 +21,7 @@ export default function Navbar({ searchTerm, setSearchTerm }) {
                         onChange={(e) => setSearchTerm && setSearchTerm(e.target.value)}
                     />
                 </div>
-                <div className="nav-buttons">
+                <div className="nav-buttons" style={{ marginLeft: 'auto' }}>
                     <Link href="/" className={`nav-btn ${pathname === '/' ? 'active' : ''}`}>
                         Laboratorios
                     </Link>
@@ -33,7 +33,7 @@ export default function Navbar({ searchTerm, setSearchTerm }) {
                     </Link>
                     
                     {/* Auth Controls */}
-                    <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                         {!loading && (
                             user ? (
                                 <>
