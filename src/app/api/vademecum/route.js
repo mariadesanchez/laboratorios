@@ -127,12 +127,16 @@ function parseResults(zkText) {
       imageSrcs.push(m[1]);
     }
     
-    // Check for apto celiaco image
+    // Check for apto celiaco image (just in case it ever appears in the list view)
     const isAptoCeliaco = imageSrcs.some(src => src.includes('isologo1.jpg'));
     
     // The product image is usually the first one that is NOT the celiac isologo, 
     // or we just take the first one if we can't tell
     const productImgSrc = imageSrcs.find(src => !src.includes('isologo1.jpg')) || null;
+
+    // Extract the "Ver Detalles" button UUID
+    const detailBtnMatch = chunk.match(/'zul\.wgt\.A','(zk_comp_\d+)',\{[^}]*tooltiptext:'Ver Detalles'/);
+    const detailBtnUuid = detailBtnMatch ? detailBtnMatch[1] : null;
 
     rows.push({
       registro:        labels[0] ?? '',
@@ -143,7 +147,8 @@ function parseResults(zkText) {
       codigoBarras:    labels[5] ?? '',
       droga:           labels[6] ?? '',
       imageSrc:        productImgSrc,
-      isAptoCeliaco:   isAptoCeliaco,
+      isAptoCeliaco:   isAptoCeliaco, // Will be enriched later if false
+      detailBtnUuid:   detailBtnUuid
     });
   }
   
@@ -152,43 +157,60 @@ function parseResults(zkText) {
 }
 
 /**
- * For each row with an imageSrc, make a HEAD request to determine
- * if the image is the placeholder (PLACEHOLDER_SIZE bytes) or a real image.
- * Returns the rows enriched with a `tieneImagen` boolean.
+ * For each row, sequentially click "Ver Detalles" to load the detail page and check for the celiac isologo.
+ * ZK session state must be handled sequentially.
  */
-async function checkImages(rows, jsession) {
-  const imgHeaders = {
+async function checkDetailsSequentially(rows, dtid, zkauUrl, jsession) {
+  const getHeaders = {
     'User-Agent': UA,
     'Cookie': jsession ? `JSESSIONID=${jsession}` : '',
-    'Referer': LIST_URL,
+    'Referer': LIST_URL
+  };
+  
+  const postHeaders = {
+    'User-Agent': UA,
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Cookie': jsession ? `JSESSIONID=${jsession}` : '',
+    'Referer': LIST_URL
   };
 
-  const checked = await Promise.all(
-    rows.map(async (row) => {
-      if (!row.imageSrc) return { ...row, tieneImagen: false };
+  const enrichedRows = [];
+  
+  for (const row of rows) {
+    let isAptoCeliaco = row.isAptoCeliaco;
+    
+    if (!isAptoCeliaco && row.detailBtnUuid) {
       try {
-        const imgRes = await fetch(PAMI_ORIGIN + row.imageSrc, {
-          method: 'HEAD',
-          headers: imgHeaders,
+        // 1. Click "Ver Detalles"
+        const p = new URLSearchParams();
+        p.set('dtid', dtid);
+        p.set('cmd_0', 'onClick');
+        p.set('uuid_0', row.detailBtnUuid);
+        p.set('data_0', JSON.stringify({ x: 0, y: 0, pageX: 0, pageY: 0, which: 1, ctrlKey: false, shiftKey: false, altKey: false, metaKey: false }));
+        
+        await fetch(zkauUrl, { method: 'POST', headers: postHeaders, body: p.toString() });
+        
+        // 2. Fetch presentacion.zul
+        const detailRes = await fetch('https://servicios.pami.org.ar/vademecum/views/consultaPublica/presentacion.zul', { 
+          method: 'GET',
+          headers: getHeaders 
         });
-        const size = parseInt(imgRes.headers.get('content-length') ?? '0', 10);
-        // If content-length is unavailable or 0, try GET and check body size
-        if (size === 0) {
-          const getRes = await fetch(PAMI_ORIGIN + row.imageSrc, {
-            headers: imgHeaders,
-          });
-          const buf = await getRes.arrayBuffer();
-          return { ...row, tieneImagen: buf.byteLength !== PLACEHOLDER_SIZE };
+        
+        const detailHtml = await detailRes.text();
+        if (detailHtml.includes('isologo1.jpg')) {
+          isAptoCeliaco = true;
         }
-        return { ...row, tieneImagen: size !== PLACEHOLDER_SIZE };
-      } catch {
-        return { ...row, tieneImagen: false };
+      } catch (err) {
+        console.error('Error fetching details for row', row.registro, err);
       }
-    })
-  );
-
-  // Strip imageSrc from final response (client doesn't need it)
-  return checked.map(({ imageSrc, ...rest }) => rest);
+    }
+    
+    // Strip internal fields we don't need to send to the client
+    const { imageSrc, detailBtnUuid, ...rest } = row;
+    enrichedRows.push({ ...rest, isAptoCeliaco });
+  }
+  
+  return enrichedRows;
 }
 
 // ─── handler ─────────────────────────────────────────────────────────────────
@@ -278,8 +300,8 @@ export async function POST(request) {
 
     const { rows } = parsed;
 
-    // 5. Check images (parallel HEAD requests)
-    const results = await checkImages(rows, jsession);
+    // 5. Check celiac status by fetching detail view sequentially
+    const results = await checkDetailsSequentially(rows, dtid, zkauUrl, jsession);
 
     return Response.json({ results, total: results.length });
   } catch (err) {

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+
+<link rel="stylesheet" type="text/css" href="/vademecum/zkau/web/795656c7/zul/css/zk.wcs"/>
+<link rel="stylesheet" type="text/css" href="/vademecum/zkau/web/795656c7/js/bootstrap/ext/css/bootstrap.min.css"/>
+
+<script type="text/javascript" src="/vademecum/zkau/web/795656c7/js/zk.wpd" charset="UTF-8"></script>
+<script type="text/javascript" src="/vademecum/zkau/web/795656c7/js/zul.lang.wpd" charset="UTF-8"></script>
+<script type="text/javascript" src="/vademecum/zkau/web/795656c7/js/bootstrap.wpd" charset="UTF-8"></script>
+<!-- ZK 7.0.3 2014090212 -->
+<script type="text/javascript">
+					document.title = 'Vademecum';
+				    var link = document.createElement('link');
+				    link.type = 'image/x-icon';
+				    link.rel = 'shortcut icon';
+				    link.href = '/img/favicon.ico';
+				    document.getElementsByTagName('head')[0].appendChild(link);
+				</script>
+<link href="/vademecum/css/override.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<div id="m0GM_" class="z-temp"><div id="zk_proc" class="z-loading"><div class="z-loading-indicator"><span class="z-loading-icon"></span>Processing...</div></div></div>
+<script type="text/javascript" src="/vademecum/jquery/jquery.js">
+</script>
+
+<script type="text/javascript" src="/vademecum/jquery/jquery.scrolltofixed-min.js">
+</script>
+
+<script type="text/javascript" src="/vademecum/jquery/jquery.maskedinput.js">
+</script>
+
+<script class="z-runonce" type="text/javascript">
+zkmx(
+[0,'m0GM_',{dt:'z_el',cu:'\x2Fvademecum',uu:'\x2Fvademecum\x2Fzkau',ru:'\x2Fviews\x2FconsultaPublica\x2Fpresentacion.zul'},[
+['zul.wnd.Window','zk_comp_1',{$$0onSwipe:true,$$0onAfterSize:true,$$onSize:false,$$0onSize:true,$$onMaximize:false,$$0onMaximize:true,$$onOpen:false,$$onMinimize:false,$$0onMinimize:true,$$onZIndex:false,$$0onZIndex:true,$onClose:true,$$onMove:false,$$0onMove:true,style:'margin:5px auto 0px auto; width:95%; height:100%: overflow:auto',prolog:'\t\n\t'},[
+['zul.box.Vlayout','zk_comp_2',{$$0onSwipe:true,$$0onAfterSize:true},[
+['zul.wgt.Div','zk_comp_3',{$$0onSwipe:true,$$0onAfterSize:true},[
+['zul.layout.Borderlayout','zk_comp_4',{$$0onSwipe:true,$$0onAfterSize:true,height:'55px',prolog:'\n\t\t\t\t'},[
+['zul.layout.East','zk_comp_5',{$$0onSwipe:true,$$0onAfterSize:true,$$onSize:false,$$0onSize:true,$$onOpen:false,border:'none',_nativebar:true},[
+['zul.wgt.Image','zk_comp_6',{$$0onSwipe:true,$$0onAfterSize:true,style:'margin-top:12px;',_preloadImage:true,src:'/vademecum/img/logo_ministerio.jpg'},[]]]],
+['zul.layout.Center','zk_comp_7',{$$0onSwipe:true,$$0onAfterSize:true,$$onSize:false,$$0onSize:true,$$onOpen:false,border:'none',_nativebar:true},[]],
+['zul.layout.West','zk_comp_8',{$$0onSwipe:true,$$0onAfterSize:true,$$onSize:false,$$0onSize:true,$$onOpen:false,border:'none',_nativebar:true},[
+['zul.wgt.Image','zk_comp_9',{$$0onSwipe:true,$$0onAfterSize:true,_preloadImage:true,src:'/vademecum/img/logo_anmat.jpg'},[]]]]]]]],
+['zul.wgt.Div','zk_comp_10',{$$0onSwipe:true,$$0onAfterSize:true},[
+['zul.wnd.Window','zk_comp_12',{$$0onSwipe:true,$$0onAfterSize:true,$$0onSize:true,$$0onMaximize:true,$$0onMinimize:true,$$0onZIndex:true,$onClose:true,$$0onMove:true,width:'100%',prolog:'\t\n\t'},[
+['zul.wgt.Groupbox','zk_comp_13',{$$0onSwipe:true,$$onOpen:false,$$0onAfterSize:true,closable:false},[
+['zul.wgt.Caption','zk_comp_14',{$$0onSwipe:true,$$0onAfterSize:true,label:'Vademécum Nacional de Medicamentos'},[]],
+['zul.grid.Grid','zk_comp_15',{$$onRender:true,$$0onRender:true,$$0onSwipe:true,$$0onTopPad:true,$$0onAfterSize:true,$$onDataLoading:true,$$0onDataLoading:true,$$onInnerWidth:false,$$0onInnerWidth:true,$$onPageSize:true,$$0onPageSize:true,$$onScrollPos:false,$$0onScrollPos:true,_nativebar:true,_topPad:0,emptyMessage:null,_totalSize:17,_offset:0},[
+['zul.grid.Columns','zk_comp_16',{$$0onSwipe:true,$$0onAfterSize:true,$$onColSize:false},[
+['zul.grid.Column','zk_comp_17',{$$0onSwipe:true,$$0onAfterSize:true,$$0onSort:true,$onSort:true,$$0onGroup:true,$$0onUngroup:true,width:'2%'},[]],
+['zul.grid.Column','zk_comp_18',{$$0onSwipe:true,$$0onAfterSize:true,$$0onSort:true,$onSort:true,$$0onGroup:true,$$0onUngroup:true,width:'15%'},[]],
+['zul.grid.Column','zk_comp_19',{$$0onSwipe:true,$$0onAfterSize:true,$$0onSort:true,$onSort:true,$$0onGroup:true,$$0onUngroup:true,width:'30%'},[]],
+['zul.grid.Column','zk_comp_20',{$$0onSwipe:true,$$0onAfterSize:true,$$0onSort:true,$onSort:true,$$0onGroup:true,$$0onUngroup:true,width:'15%'},[]],
+['zul.grid.Column','zk_comp_21',{$$0onSwipe:true,$$0onAfterSize:true,$$0onSort:true,$onSort:true,$$0onGroup:true,$$0onUngroup:true,width:'30%'},[]],
+['zul.grid.Column','zk_comp_22',{$$0onSwipe:true,$$0onAfterSize:true,$$0onSort:true,$onSort:true,$$0onGroup:true,$$0onUngroup:true,width:'2%'},[]]]],
+['zul.grid.Rows','zk_comp_23',{$$0onSwipe:true,$$0onAfterSize:true,_offset:0,visibleItemCount:17},[
+['zul.grid.Row','zk_comp_24',{$$0onSwipe:true,$$0onAfterSize:true,_index:0},[
+['zul.wgt.Cell','zk_comp_25',{$$0onSwipe:true,$$0onAfterSize:true,colspan:6,align:null,valign:null},[]]]],
+['zul.grid.Row','zk_comp_26',{$$0onSwipe:true,$$0onAfterSize:true,_index:1},[
+['zul.wgt.Label','zk_comp_27',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_28',{$$0onSwipe:true,$$0onAfterSize:true,style:'font-weight: bold;',value:'Nº de Certificado:'},[]],
+['zul.wgt.Label','zk_comp_29',{$$0onSwipe:true,$$0onAfterSize:true,width:'50%',value:'37809'},[]],
+['zul.wgt.Label','zk_comp_30',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_31',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_32',{$$0onSwipe:true,$$0onAfterSize:true},[]]]],
+['zul.grid.Row','zk_comp_33',{$$0onSwipe:true,$$0onAfterSize:true,_index:2},[
+['zul.wgt.Label','zk_comp_34',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_35',{$$0onSwipe:true,$$0onAfterSize:true,style:'font-weight: bold;',value:'Laboratorio:'},[]],
+['zul.wgt.Label','zk_comp_36',{$$0onSwipe:true,$$0onAfterSize:true,width:'50%',value:'ROEMMERS S A I C F'},[]],
+['zul.wgt.Label','zk_comp_37',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_38',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_39',{$$0onSwipe:true,$$0onAfterSize:true},[]]]],
+['zul.grid.Row','zk_comp_40',{$$0onSwipe:true,$$0onAfterSize:true,_index:3},[
+['zul.wgt.Label','zk_comp_41',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_42',{$$0onSwipe:true,$$0onAfterSize:true,style:'font-weight: bold;',value:'Nombre Comercial:'},[]],
+['zul.wgt.Label','zk_comp_43',{$$0onSwipe:true,$$0onAfterSize:true,width:'50%',value:'LOTRIAL 2.5'},[]],
+['zul.wgt.Cell','zk_comp_44',{$$0onSwipe:true,$$0onAfterSize:true,align:null,valign:null},[
+['zul.wgt.Label','zk_comp_45',{$$0onSwipe:true,$$0onAfterSize:true,style:'font-weight:bold;',value:'Envases Secundarios:'},[]]]],
+['zul.wgt.Cell','zk_comp_46',{$$0onSwipe:true,$$0onAfterSize:true,align:null,valign:null},[
+['zul.wgt.Div','zk_comp_47',{$$0onSwipe:true,$$0onAfterSize:true,align:'right'},[
+['zul.box.Hlayout','zk_comp_48',{$$0onSwipe:true,$$0onAfterSize:true,hflex:'true',style:'overflow-x:auto; overflow-y:hidden;',prolog:'\n\t\t\t\t\t\t\t\t'},[
+['zul.box.Box','zk_comp_49',{$$0onSwipe:true,$$0onAfterSize:true},[],'horizontal']]]]]]],
+['zul.wgt.Label','zk_comp_50',{$$0onSwipe:true,$$0onAfterSize:true},[]]]],
+['zul.grid.Row','zk_comp_51',{$$0onSwipe:true,$$0onAfterSize:true,_index:4},[
+['zul.wgt.Label','zk_comp_52',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_53',{$$0onSwipe:true,$$0onAfterSize:true,style:'font-weight: bold;',value:'Isologos:'},[]],
+['zul.wgt.Cell','zk_comp_54',{$$0onSwipe:true,$$0onAfterSize:true,colspan:3,align:null,valign:null},[
+['zul.wgt.Div','zk_comp_55',{$$0onSwipe:true,$$0onAfterSize:true,style:'overflow-x:auto; overflow-y:hidden;'},[
+['zul.box.Box','zk_comp_56',{$$0onSwipe:true,$$0onAfterSize:true,prolog:'\n\t\t\t\t\t\t\t\t'},[
+['zul.box.Box','zk_comp_169',{$$0onSwipe:true,$$0onAfterSize:true,style:'padding-left:20px;',align:'center'},[
+['zul.wgt.Image','zk_comp_170',{$$0onSwipe:true,$$0onAfterSize:true,style:'max-width:150px; max-height:150px; border-style:solid; border-width:1px;',src:'/vademecum/img/isologo1.jpg'},[]]],'vertical'],
+['zul.box.Box','zk_comp_171',{$$0onSwipe:true,$$0onAfterSize:true,width:'15px'},[],'horizontal']],'horizontal']]]]],
+['zul.wgt.Label','zk_comp_57',{$$0onSwipe:true,$$0onAfterSize:true},[]]]],
+['zul.grid.Row','zk_comp_58',{$$0onSwipe:true,$$0onAfterSize:true,_index:5},[
+['zul.wgt.Label','zk_comp_59',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_60',{$$0onSwipe:true,$$0onAfterSize:true,style:'font-weight: bold;',value:'Nombre Genérico:'},[]],
+['zul.wgt.Cell','zk_comp_61',{$$0onSwipe:true,$$0onAfterSize:true,colspan:3,align:null,valign:null},[
+['zul.wgt.Label','zk_comp_62',{$$0onSwipe:true,$$0onAfterSize:true,value:'ENALAPRIL MALEATO'},[]]]],
+['zul.wgt.Label','zk_comp_63',{$$0onSwipe:true,$$0onAfterSize:true},[]]]],
+['zul.grid.Row','zk_comp_64',{$$0onSwipe:true,$$0onAfterSize:true,_index:6},[
+['zul.wgt.Label','zk_comp_65',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_66',{$$0onSwipe:true,$$0onAfterSize:true,style:'font-weight: bold;',value:'Forma Farmacéutica:'},[]],
+['zul.wgt.Label','zk_comp_67',{$$0onSwipe:true,$$0onAfterSize:true,width:'50%',value:'COMPRIMIDO'},[]],
+['zul.wgt.Label','zk_comp_68',{$$0onSwipe:true,$$0onAfterSize:true,style:'font-weight: bold;',value:'Nº de Troquel:'},[]],
+['zul.wgt.Label','zk_comp_69',{$$0onSwipe:true,$$0onAfterSize:true,width:'50%',value:'328098'},[]],
+['zul.wgt.Label','zk_comp_70',{$$0onSwipe:true,$$0onAfterSize:true},[]]]],
+['zul.grid.Row','zk_comp_71',{$$0onSwipe:true,$$0onAfterSize:true,_index:7},[
+['zul.wgt.Cell','zk_comp_72',{$$0onSwipe:true,$$0onAfterSize:true,height:'30px',colspan:6,align:null,valign:null},[]]]],
+['zul.grid.Row','zk_comp_73',{$$0onSwipe:true,$$0onAfterSize:true,_index:8},[
+['zul.wgt.Label','zk_comp_74',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_75',{$$0onSwipe:true,$$0onAfterSize:true,style:'font-weight: bold;',value:'Fórmula:'},[]],
+['zul.wgt.Label','zk_comp_76',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_77',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_78',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_79',{$$0onSwipe:true,$$0onAfterSize:true},[]]]],
+['zul.grid.Row','zk_comp_80',{$$0onSwipe:true,$$0onAfterSize:true,_index:9},[
+['zul.wgt.Cell','zk_comp_81',{$$0onSwipe:true,$$0onAfterSize:true,colspan:6,align:null,valign:null},[
+['zul.grid.Grid','zk_comp_82',{$$0onRender:true,$$0onSwipe:true,$$0onTopPad:true,$$0onAfterSize:true,$$0onDataLoading:true,$$0onInnerWidth:true,$$0onPageSize:true,$$0onScrollPos:true,style:'border:none; padding:0px 10px 0px 50px;',_nativebar:true,model:true,_topPad:0,emptyMessage:null,_totalSize:1,_offset:0},[
+['zul.grid.Rows','zk_comp_172',{$$0onSwipe:true,$$0onAfterSize:true,_offset:0,visibleItemCount:1},[
+['zul.grid.Row','zk_comp_178',{$$0onSwipe:true,$$0onAfterSize:true,_loaded:true,_index:0},[
+['zul.box.Box','zk_comp_179',{$$0onSwipe:true,$$0onAfterSize:true},[
+['zul.wgt.Label','zk_comp_180',{$$0onSwipe:true,$$0onAfterSize:true,value:'ACTIVO'},[]],
+['zul.box.Box','zk_comp_181',{$$0onSwipe:true,$$0onAfterSize:true},[
+['zul.grid.Grid','zk_comp_182',{$$0onRender:true,$$0onSwipe:true,$$0onTopPad:true,$$0onAfterSize:true,$$0onDataLoading:true,$$0onInnerWidth:true,$$0onPageSize:true,$$0onScrollPos:true,style:'border:none;padding-left:30px;',_nativebar:true,_topPad:0,emptyMessage:null,_totalSize:1,_offset:0},[
+['zul.grid.Rows','zk_comp_183',{$$0onSwipe:true,$$0onAfterSize:true,_offset:0,visibleItemCount:1},[
+['zul.grid.Row','zk_comp_184',{$$0onSwipe:true,$$0onAfterSize:true,_index:0},[
+['zul.box.Box','zk_comp_185',{$$0onSwipe:true,$$0onAfterSize:true},[
+['zul.wgt.Label','zk_comp_186',{$$0onSwipe:true,$$0onAfterSize:true,value:'\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tIngrediente (s) Farmacéutico (s) Activo (s) (IFA)\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t'},[]],
+['zul.sel.Listbox','zk_comp_187',{$$0onBlur:true,$$onRender:true,$$0onRender:true,$$onSelect:false,$$0onSwipe:true,$$0onTopPad:true,$$0onAfterSize:true,$$onDataLoading:true,$$0onDataLoading:true,$$onAnchorPos:false,$$0onAnchorPos:true,$$onAcrossPage:true,$$0onAcrossPage:true,$$onCheckSelectAll:false,$$0onCheckSelectAll:true,$$onInnerWidth:false,$$0onInnerWidth:true,$$onPageSize:true,$$0onPageSize:true,$$0onFocus:true,$$onScrollPos:false,$$0onScrollPos:true,_nativebar:true,model:true,_topPad:0,_totalSize:1,_offset:0},[
+['zul.sel.Listhead','zk_comp_188',{$$0onSwipe:true,$$0onAfterSize:true,$$onColSize:false},[
+['zul.sel.Listheader','zk_comp_189',{$$0onSwipe:true,$$0onAfterSize:true,$$0onSort:true,$onSort:true,$$0onGroup:true,$$0onUngroup:true,label:'IFA',align:'center'},[]],
+['zul.sel.Listheader','zk_comp_190',{$$0onSwipe:true,$$0onAfterSize:true,$$0onSort:true,$onSort:true,$$0onGroup:true,$$0onUngroup:true,label:'Cant.',align:'center'},[]],
+['zul.sel.Listheader','zk_comp_191',{$$0onSwipe:true,$$0onAfterSize:true,$$0onSort:true,$onSort:true,$$0onGroup:true,$$0onUngroup:true,label:'U. de medida',align:'center'},[]],
+['zul.sel.Listheader','zk_comp_192',{$$0onSwipe:true,$$0onAfterSize:true,$$0onSort:true,$onSort:true,$$0onGroup:true,$$0onUngroup:true,label:'IFA (como)',align:'center'},[]],
+['zul.sel.Listheader','zk_comp_193',{$$0onSwipe:true,$$0onAfterSize:true,$$0onSort:true,$onSort:true,$$0onGroup:true,$$0onUngroup:true,label:'Cant.',align:'center'},[]],
+['zul.sel.Listheader','zk_comp_194',{$$0onSwipe:true,$$0onAfterSize:true,$$0onSort:true,$onSort:true,$$0onGroup:true,$$0onUngroup:true,label:'U. de medida',align:'center'},[]]]],
+['zul.sel.Listitem','zk_comp_207',{$$0onSwipe:true,$$0onAfterSize:true,_loaded:true,_index:0},[
+['zul.sel.Listcell','zk_comp_208',{$$0onSwipe:true,$$0onAfterSize:true,label:'ENALAPRIL MALEATO'},[]],
+['zul.sel.Listcell','zk_comp_209',{$$0onSwipe:true,$$0onAfterSize:true,label:'2.5'},[]],
+['zul.sel.Listcell','zk_comp_210',{$$0onSwipe:true,$$0onAfterSize:true,label:'MG'},[]],
+['zul.sel.Listcell','zk_comp_211',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.sel.Listcell','zk_comp_212',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.sel.Listcell','zk_comp_213',{$$0onSwipe:true,$$0onAfterSize:true},[]]]]]]],'vertical']]]]]]]],'vertical']],'vertical']]]]]]]]]]],
+['zul.grid.Row','zk_comp_83',{visible:false,$$0onSwipe:true,$$0onAfterSize:true,_index:10},[
+['zul.wgt.Label','zk_comp_84',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_85',{$$0onSwipe:true,$$0onAfterSize:true,style:'font-weight: bold;',value:'Posee Biodisponibilidad/ Bioequivalencia Aceptada:'},[]],
+['zul.wgt.Label','zk_comp_86',{$$0onSwipe:true,$$0onAfterSize:true,width:'50%',value:'NO'},[]],
+['zul.wgt.Label','zk_comp_87',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_88',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_89',{$$0onSwipe:true,$$0onAfterSize:true},[]]]],
+['zul.grid.Row','zk_comp_90',{visible:false,$$0onSwipe:true,$$0onAfterSize:true,_index:11},[
+['zul.wgt.Label','zk_comp_91',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_92',{$$0onSwipe:true,$$0onAfterSize:true,style:'font-weight: bold;',value:'Posee Bioexencion Aceptada:'},[]],
+['zul.wgt.Label','zk_comp_93',{$$0onSwipe:true,$$0onAfterSize:true,width:'50%',value:'SI'},[]],
+['zul.wgt.Label','zk_comp_94',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_95',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_96',{$$0onSwipe:true,$$0onAfterSize:true},[]]]],
+['zul.grid.Row','zk_comp_97',{$$0onSwipe:true,$$0onAfterSize:true,_index:12},[
+['zul.wgt.Label','zk_comp_98',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_99',{$$0onSwipe:true,$$0onAfterSize:true,style:'font-weight: bold;',value:'Vía de Administración:'},[]],
+['zul.wgt.Label','zk_comp_100',{$$0onSwipe:true,$$0onAfterSize:true,width:'50%',value:'ORAL'},[]],
+['zul.wgt.Label','zk_comp_101',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_102',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_103',{$$0onSwipe:true,$$0onAfterSize:true},[]]]],
+['zul.grid.Row','zk_comp_104',{$$0onSwipe:true,$$0onAfterSize:true,_index:13},[
+['zul.wgt.Label','zk_comp_105',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_106',{$$0onSwipe:true,$$0onAfterSize:true,style:'font-weight: bold;',value:'Condición de Expendio:'},[]],
+['zul.wgt.Label','zk_comp_107',{$$0onSwipe:true,$$0onAfterSize:true,width:'50%',value:'BAJO RECETA'},[]],
+['zul.wgt.Label','zk_comp_108',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_109',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_110',{$$0onSwipe:true,$$0onAfterSize:true},[]]]],
+['zul.grid.Row','zk_comp_111',{$$0onSwipe:true,$$0onAfterSize:true,_index:14},[
+['zul.wgt.Label','zk_comp_112',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_113',{$$0onSwipe:true,$$0onAfterSize:true,style:'font-weight: bold;',value:'Presentación:'},[]],
+['zul.wgt.Label','zk_comp_114',{$$0onSwipe:true,$$0onAfterSize:true,width:'50%',value:' BLISTER por 30 UNIDADES '},[]],
+['zul.wgt.Label','zk_comp_115',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_116',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_117',{$$0onSwipe:true,$$0onAfterSize:true},[]]]],
+['zul.grid.Row','zk_comp_118',{$$0onSwipe:true,$$0onAfterSize:true,_index:15},[
+['zul.wgt.Label','zk_comp_119',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_120',{$$0onSwipe:true,$$0onAfterSize:true,style:'font-weight: bold;',value:'GTIN:'},[]],
+['zul.wgt.Label','zk_comp_121',{$$0onSwipe:true,$$0onAfterSize:true,width:'50%',value:'07795345011585'},[]],
+['zul.wgt.Label','zk_comp_122',{$$0onSwipe:true,$$0onAfterSize:true,style:'font-weight: bold;',value:'Etiquetas Trazabilidad:'},[]],
+['zul.wgt.Cell','zk_comp_123',{$$0onSwipe:true,$$0onAfterSize:true,align:null,valign:null},[
+['zul.wgt.Div','zk_comp_124',{$$0onSwipe:true,$$0onAfterSize:true,style:'overflow-x:auto; overflow-y:hidden;'},[
+['zul.box.Box','zk_comp_125',{$$0onSwipe:true,$$0onAfterSize:true,prolog:'\n\t\t\t\t\t\t\t\t'},[],'horizontal']]]]],
+['zul.wgt.Label','zk_comp_126',{$$0onSwipe:true,$$0onAfterSize:true},[]]]],
+['zul.grid.Row','zk_comp_127',{$$0onSwipe:true,$$0onAfterSize:true,_index:16},[
+['zul.wgt.Cell','zk_comp_128',{$$0onSwipe:true,$$0onAfterSize:true,height:'30px',colspan:6,align:null,valign:null},[]]]],
+['zul.grid.Row','zk_comp_129',{$$0onSwipe:true,$$0onAfterSize:true,_index:17},[
+['zul.wgt.Label','zk_comp_130',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_131',{$$0onSwipe:true,$$0onAfterSize:true,style:'font-weight: bold;',value:'Prospectos Comercializados:'},[]],
+['zul.wgt.Cell','zk_comp_132',{$$0onSwipe:true,$$0onAfterSize:true,colspan:3,align:null,valign:null},[
+['zul.wgt.Div','zk_comp_133',{$$0onSwipe:true,$$0onAfterSize:true,style:'overflow-x:auto; overflow-y:hidden;'},[
+['zul.box.Box','zk_comp_134',{$$0onSwipe:true,$$0onAfterSize:true,prolog:'\n\t\t\t\t\t\t\t\t'},[
+['zul.box.Box','zk_comp_175',{$$0onSwipe:true,$$0onAfterSize:true,style:'padding-left:20px;',align:'center'},[
+['zul.wgt.Image','zk_comp_176',{$$0onSwipe:true,$onClick:true,$$0onAfterSize:true,style:'max-width:160px; max-height:160px; border-style:solid; border-width:1px; cursor:pointer; margin:1px;',tooltiptext:'Descargar',src:'/vademecum/zkau/view/z_el/zk_comp_176/g14/2/c/Lotrial%20comprimidos%2010124%20(R).pdf'},[]]],'vertical'],
+['zul.box.Box','zk_comp_177',{$$0onSwipe:true,$$0onAfterSize:true,width:'14px'},[],'horizontal']],'horizontal']]]]],
+['zul.wgt.Label','zk_comp_135',{$$0onSwipe:true,$$0onAfterSize:true},[]]]],
+['zul.grid.Row','zk_comp_136',{visible:false,$$0onSwipe:true,$$0onAfterSize:true,_index:18},[
+['zul.wgt.Label','zk_comp_137',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_138',{$$0onSwipe:true,$$0onAfterSize:true,style:'font-weight: bold;',value:'Información para el Paciente:'},[]],
+['zul.wgt.Cell','zk_comp_139',{$$0onSwipe:true,$$0onAfterSize:true,colspan:3,align:null,valign:null},[
+['zul.wgt.Div','zk_comp_140',{$$0onSwipe:true,$$0onAfterSize:true,style:'overflow-x:auto; overflow-y:hidden;'},[
+['zul.box.Box','zk_comp_141',{$$0onSwipe:true,$$0onAfterSize:true,prolog:'\n\t\t\t\t\t\t\t\t'},[],'horizontal']]]]],
+['zul.wgt.Label','zk_comp_142',{$$0onSwipe:true,$$0onAfterSize:true},[]]]],
+['zul.grid.Row','zk_comp_143',{visible:false,$$0onSwipe:true,$$0onAfterSize:true,_index:19},[
+['zul.wgt.Cell','zk_comp_144',{$$0onSwipe:true,$$0onAfterSize:true,height:'30px',colspan:6,align:null,valign:null},[]]]],
+['zul.grid.Row','zk_comp_145',{visible:false,$$0onSwipe:true,$$0onAfterSize:true,_index:20},[
+['zul.wgt.Label','zk_comp_146',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_147',{$$0onSwipe:true,$$0onAfterSize:true,style:'font-weight: bold;',value:'Disponibilidad en el Mercado:'},[]],
+['zul.wgt.Cell','zk_comp_148',{$$0onSwipe:true,$$0onAfterSize:true,colspan:3,align:null,valign:null},[
+['zul.wgt.Label','zk_comp_149',{$$0onSwipe:true,$$0onAfterSize:true},[]]]],
+['zul.wgt.Label','zk_comp_150',{$$0onSwipe:true,$$0onAfterSize:true},[]]]],
+['zul.grid.Row','zk_comp_151',{visible:false,$$0onSwipe:true,$$0onAfterSize:true,_index:21},[
+['zul.wgt.Cell','zk_comp_152',{$$0onSwipe:true,$$0onAfterSize:true,height:'30px',colspan:6,align:null,valign:null},[]]]],
+['zul.grid.Row','zk_comp_153',{visible:false,$$0onSwipe:true,$$0onAfterSize:true,_index:22},[
+['zul.wgt.Label','zk_comp_154',{$$0onSwipe:true,$$0onAfterSize:true},[]],
+['zul.wgt.Label','zk_comp_155',{$$0onSwipe:true,$$0onAfterSize:true,style:'font-weight: bold;',value:'Retiro del Mercado:'},[]],
+['zul.wgt.Cell','zk_comp_156',{$$0onSwipe:true,$$0onAfterSize:true,colspan:3,align:null,valign:null},[
+['zul.sel.Listbox','zk_comp_157',{$$0onBlur:true,$$0onRender:true,$$0onSwipe:true,$$0onTopPad:true,$$0onAfterSize:true,$$0onDataLoading:true,$$0onAnchorPos:true,$$0onAcrossPage:true,$$0onCheckSelectAll:true,$$0onInnerWidth:true,$$0onPageSize:true,$$0onFocus:true,$$0onScrollPos:true,width:'100%',style:'margin-bottom:10px;',_nativebar:true,emptyMessage:'No se han encontrado resultados',model:true,_topPad:0,_totalSize:0,_offset:0},[
+['zul.sel.Listhead','zk_comp_158',{$$0onSwipe:true,$$0onAfterSize:true},[
+['zul.sel.Listheader','zk_comp_159',{id:'defaultSort',$$0onSwipe:true,$$0onAfterSize:true,$$0onSort:true,$onSort:true,$$0onGroup:true,$$0onUngroup:true,label:'Motivo',align:'center',sortDescending:'fromServer',sortAscending:'fromServer',sortDirection:'descending'},[]]]]]]]],
+['zul.wgt.Label','zk_comp_160',{$$0onSwipe:true,$$0onAfterSize:true},[]]]],
+['zul.grid.Row','zk_comp_161',{$$0onSwipe:true,$$0onAfterSize:true,_index:23},[
+['zul.wgt.Cell','zk_comp_162',{$$0onSwipe:true,$$0onAfterSize:true,colspan:6,align:null,valign:null},[]]]]]]]]]],
+['zk.Native','zk_comp_163',{id:'footer',prolog:'<div id="footer">\n\t\t\t',epilog:'\t\t\t\t\t\n\t\t</div>'},[
+['zul.wgt.Div','zk_comp_164',{$$0onSwipe:true,$$0onAfterSize:true,style:'margin-top:5px; padding:18px; border:1px solid grey; width:100%; background-color:rgb(217, 229,239)'},[
+['zul.wgt.Button','zk_comp_165',{$$0onBlur:true,$$0onSwipe:true,$onClick:true,$$0onAfterSize:true,$$0onFocus:true,sclass:'btn-default btn-sm',prolog:'\t\t\t\n\t\t\t\t',label:'Volver a la consulta',autodisable:'+self'},[],'bs']]]]],
+['zul.utl.Script','zk_comp_166',{},[]],
+['zul.utl.Script','zk_comp_167',{},[]],
+['zul.utl.Script','zk_comp_168',{},[]]]]]]]]]],
+['zul.utl.Timer','zk_comp_11',{id:'timerKeepAliveSession',$$0onSwipe:true,$$0onAfterSize:true,$$0onTimer:true,$onTimer:true,prolog:'\n\t',repeats:true,delay:600000},[]]]],0,
+['script','["jQuery(\'#footer\').scrollToFixed({bottom: 0, limit: $(\'#footer\').offset().top + 10000})"]']);
+
+</script>
+<noscript>
+<div class="noscript"><p>Sorry, JavaScript must be enabled.<br/>Change your browser options, then <a href="">try again</a>.</p></div>
+</noscript>
+
+</body>
+</html>
