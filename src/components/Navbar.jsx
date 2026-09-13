@@ -29,7 +29,7 @@ export default function Navbar({ searchTerm, setSearchTerm }) {
                         Códigos
                     </Link>
                     <Link href="/vademecum_celiacos" className={`nav-btn ${pathname === '/vademecum_celiacos' ? 'active' : ''}`}>
-                        Vademecum Celíacos
+                        Celíacos
                     </Link>
                     
                     {/* Auth Controls */}

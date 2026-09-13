@@ -6,11 +6,11 @@ export const maxDuration = 60; // seconds
 export async function POST(request) {
   let browser = null;
   try {
-    const { medicamento = '', laboratorio = '' } = await request.json();
+    const { medicamento = '' } = await request.json();
 
-    if (!medicamento && !laboratorio) {
+    if (!medicamento.trim()) {
       return Response.json(
-        { error: 'Ingresá al menos el nombre del medicamento o el laboratorio.' },
+        { error: 'Ingresá el nombre comercial del medicamento.' },
         { status: 400 }
       );
     }
@@ -28,42 +28,33 @@ export async function POST(request) {
       timeout: 30000,
     });
 
-    // Wait for the main search input
+    // Wait for the main search input: <input id="zk_comp_34" ...>
     await page.waitForSelector('#zk_comp_34', { timeout: 15000 });
 
-    // Fill commercial name field
-    if (medicamento) {
-      await page.fill('#zk_comp_34', medicamento);
-      await page.waitForTimeout(500);
-    }
-
-    // Handle laboratorio bandbox — click to open popup, then type
-    if (laboratorio) {
-      // Click the bandbox toggle button (the small button next to the readonly input)
-      const bandboxBtn = await page.$('#zk_comp_40-real');
-      if (bandboxBtn) {
-        // Click the parent bandbox area to open the popup
-        await page.click('[id="zk_comp_40-btn"]').catch(() =>
-          page.click('[id^="zk_comp_40"]').catch(() => null)
-        );
-        await page.waitForTimeout(800);
-
-        // Try typing in the lab search box inside the popup
-        const labInput = await page.$('#zk_comp_53');
-        if (labInput) {
-          await page.fill('#zk_comp_53', laboratorio);
-          await page.waitForTimeout(500);
-        }
+    // Focus, type the commercial name, and dispatch change event for ZK framework
+    await page.click('#zk_comp_34');
+    await page.fill('#zk_comp_34', medicamento.trim());
+    await page.evaluate(() => {
+      const input = document.querySelector('#zk_comp_34');
+      if (input) {
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+        input.dispatchEvent(new Event('blur', { bubbles: true }));
       }
-    }
+    });
+    await page.waitForTimeout(400);
 
-    // Click the search button
+    // Wait for the search button: <button id="zk_comp_80" ...>
+    await page.waitForSelector('#zk_comp_80', { timeout: 10000 });
     await page.click('#zk_comp_80');
 
-    // Wait for results to load
-    await page.waitForSelector('#zk_comp_109 .z-row', {
+    // Wait for results grid or empty response
+    await page.waitForSelector('#zk_comp_109 .z-row, .z-messagebox', {
       timeout: 20000,
-    });
+    }).catch(() => null);
+
+    // Wait a bit more for rendering
+    await page.waitForTimeout(1500);
 
     // Wait a bit more for all rows to render
     await page.waitForTimeout(1500);

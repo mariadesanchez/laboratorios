@@ -5,15 +5,14 @@ import Link from 'next/link';
 
 export default function VademecumCeliacos() {
   const [medicamento, setMedicamento] = useState('');
-  const [laboratorio, setLaboratorio] = useState('');
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    if (!medicamento.trim() && !laboratorio.trim()) {
-      setError('Ingresá al menos el nombre del medicamento o el laboratorio.');
+    if (!medicamento.trim()) {
+      setError('Ingresá el nombre comercial del medicamento.');
       return;
     }
     setError('');
@@ -26,7 +25,6 @@ export default function VademecumCeliacos() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           medicamento: medicamento.trim(),
-          laboratorio: laboratorio.trim(),
         }),
       });
       const data = await res.json();
@@ -41,7 +39,6 @@ export default function VademecumCeliacos() {
 
   const handleClear = () => {
     setMedicamento('');
-    setLaboratorio('');
     setResults(null);
     setError('');
   };
@@ -68,7 +65,7 @@ export default function VademecumCeliacos() {
 
         {/* Search Form */}
         <form onSubmit={handleSearch} className="vd-form">
-          <div className="vd-form-grid">
+          <div className="vd-form-grid" style={{ gridTemplateColumns: '1fr' }}>
             <div className="vd-field">
               <label htmlFor="vd-med" className="vd-label">
                 <span className="vd-label-icon">💊</span>
@@ -78,25 +75,11 @@ export default function VademecumCeliacos() {
                 id="vd-med"
                 type="text"
                 className="vd-input"
-                placeholder="Ej: Lotrial, Enalapril..."
+                placeholder="Ej: Lotrial, Enalapril, Amoxidal..."
                 value={medicamento}
                 onChange={(e) => setMedicamento(e.target.value)}
                 autoComplete="off"
-              />
-            </div>
-            <div className="vd-field">
-              <label htmlFor="vd-lab" className="vd-label">
-                <span className="vd-label-icon">🏭</span>
-                Laboratorio
-              </label>
-              <input
-                id="vd-lab"
-                type="text"
-                className="vd-input"
-                placeholder="Ej: Roemmers, Gador..."
-                value={laboratorio}
-                onChange={(e) => setLaboratorio(e.target.value)}
-                autoComplete="off"
+                required
               />
             </div>
           </div>
@@ -123,7 +106,7 @@ export default function VademecumCeliacos() {
                 </>
               )}
             </button>
-            {(results !== null || medicamento || laboratorio) && (
+            {(results !== null || medicamento) && (
               <button type="button" className="vd-btn-clear" onClick={handleClear}>
                 Limpiar
               </button>
@@ -147,7 +130,7 @@ export default function VademecumCeliacos() {
                   : `${results.length} resultado${results.length !== 1 ? 's' : ''} encontrado${results.length !== 1 ? 's' : ''}`}
               </h2>
               {results.length > 0 && (
-                <span className="vd-results-badge">{medicamento || '—'} · {laboratorio || 'Todos los labs'}</span>
+                <span className="vd-results-badge">{medicamento}</span>
               )}
             </div>
 
@@ -155,7 +138,7 @@ export default function VademecumCeliacos() {
               <div className="vd-empty">
                 <div className="vd-empty-icon">🔍</div>
                 <p>No se encontraron medicamentos con los filtros indicados.</p>
-                <p className="vd-empty-sub">Probá con un nombre más corto o sin filtro de laboratorio.</p>
+                <p className="vd-empty-sub">Probá con un nombre más corto o una variante comercial.</p>
               </div>
             ) : (
               <div className="vd-table-wrap">
