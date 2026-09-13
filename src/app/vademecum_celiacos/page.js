@@ -183,7 +183,6 @@ export default function VademecumCeliacos() {
                   <thead>
                     <tr>
                       <th>Apto Celíaco</th>
-                      <th>Registro</th>
                       <th>Laboratorio</th>
                       <th>Nombre Comercial</th>
                       <th>Forma</th>
@@ -198,26 +197,22 @@ export default function VademecumCeliacos() {
                         <td style={{ textAlign: 'center' }}>
                           {item.isAptoCeliaco ? (
                             <span
-                              className="vd-status-icon apto"
+                              className="vd-status-emoji"
                               title="Apto Celíaco (Contiene isologo Sin T.A.C.C.)"
+                              style={{ fontSize: '18px', cursor: 'default' }}
                             >
-                              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                                <polyline points="20 6 9 17 4 12" />
-                              </svg>
+                              ✅
                             </span>
                           ) : (
                             <span
-                              className="vd-status-icon no-apto"
+                              className="vd-status-emoji"
                               title="No figura Apto Celíaco"
+                              style={{ fontSize: '18px', cursor: 'default' }}
                             >
-                              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                                <line x1="18" y1="6" x2="6" y2="18" />
-                                <line x1="6" y1="6" x2="18" y2="18" />
-                              </svg>
+                              ❌
                             </span>
                           )}
                         </td>
-                        <td className="vd-cell-mono">{item.registro}</td>
                         <td>{item.laboratorio}</td>
                         <td className="vd-cell-bold">{item.nombreComercial}</td>
                         <td>
