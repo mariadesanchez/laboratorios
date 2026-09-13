@@ -28,6 +28,9 @@ export default function Navbar({ searchTerm, setSearchTerm }) {
                     <Link href="/obras_sociales" className={`nav-btn ${pathname === '/obras_sociales' ? 'active' : ''}`}>
                         Códigos
                     </Link>
+                    <Link href="/vademecum_celiacos" className={`nav-btn ${pathname === '/vademecum_celiacos' ? 'active' : ''}`}>
+                        Vademecum Celíacos
+                    </Link>
                     
                     {/* Auth Controls */}
                     <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '10px' }}>

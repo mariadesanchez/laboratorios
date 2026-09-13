@@ -1617,3 +1617,369 @@
         transform: scale(0.7); /* Scale down logos */
     }
 }
+
+/* =============================================
+   VADEMECUM CELÍACOS PAGE
+   ============================================= */
+
+.vd-page {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-top: 10px;
+}
+
+/* Header */
+.vd-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+    padding: 24px 28px;
+    background: linear-gradient(135deg, #12439a 0%, #1a5abf 100%);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(18, 67, 154, 0.3);
+    color: white;
+}
+
+.vd-header-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    backdrop-filter: blur(8px);
+}
+
+.vd-header-icon svg {
+    color: white;
+    opacity: 0.95;
+}
+
+.vd-title {
+    margin: 0 0 4px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+
+.vd-subtitle {
+    margin: 0;
+    font-size: 13px;
+    opacity: 0.8;
+    font-weight: 400;
+}
+
+/* Form */
+.vd-form {
+    background: white;
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    margin-bottom: 24px;
+}
+
+.vd-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.vd-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.vd-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.vd-label-icon {
+    font-size: 14px;
+}
+
+.vd-input {
+    height: 44px;
+    padding: 0 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: inherit;
+    background: #f9fafb;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    outline: none;
+    color: #111;
+}
+
+.vd-input:focus {
+    border-color: #12439a;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(18, 67, 154, 0.12);
+}
+
+.vd-input::placeholder {
+    color: #aaa;
+}
+
+/* Error */
+.vd-error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #dc2626;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Actions */
+.vd-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.vd-btn-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    background: linear-gradient(135deg, #12439a, #1a5abf);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 3px 12px rgba(18, 67, 154, 0.35);
+}
+
+.vd-btn-search:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 16px rgba(18, 67, 154, 0.45);
+}
+
+.vd-btn-search:disabled {
+    opacity: 0.75;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.vd-btn-clear {
+    padding: 12px 20px;
+    background: #f3f4f6;
+    color: #555;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.vd-btn-clear:hover {
+    background: #e5e7eb;
+}
+
+/* Spinner */
+.vd-spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: vd-spin 0.7s linear infinite;
+}
+
+@keyframes vd-spin {
+    to { transform: rotate(360deg); }
+}
+
+.vd-loading-note {
+    font-size: 12px;
+    color: #888;
+    margin: 10px 0 0;
+    font-style: italic;
+}
+
+/* Results */
+.vd-results {
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    overflow: hidden;
+}
+
+.vd-results-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    border-bottom: 1px solid #f0f0f0;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.vd-results-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #111;
+}
+
+.vd-results-badge {
+    font-size: 12px;
+    background: #eff6ff;
+    color: #12439a;
+    border: 1px solid #bfdbfe;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+/* Empty state */
+.vd-empty {
+    text-align: center;
+    padding: 60px 24px;
+    color: #666;
+}
+
+.vd-empty-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+}
+
+.vd-empty-sub {
+    font-size: 13px;
+    color: #aaa;
+    margin-top: 4px;
+}
+
+/* Table */
+.vd-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.vd-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.vd-table thead tr {
+    background: #f8faff;
+    border-bottom: 2px solid #e8eef8;
+}
+
+.vd-table th {
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #12439a;
+    white-space: nowrap;
+}
+
+.vd-table td {
+    padding: 11px 16px;
+    vertical-align: middle;
+    border-bottom: 1px solid #f0f4ff;
+    color: #333;
+}
+
+.vd-row-even {
+    background: white;
+}
+
+.vd-row-odd {
+    background: #fafbff;
+}
+
+.vd-table tbody tr:hover {
+    background: #f0f5ff;
+    transition: background 0.15s;
+}
+
+.vd-cell-mono {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: #666;
+}
+
+.vd-cell-bold {
+    font-weight: 600;
+    color: #111;
+}
+
+.vd-pill {
+    display: inline-block;
+    padding: 2px 10px;
+    background: #eff6ff;
+    color: #1a5abf;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.vd-cell-droga {
+    font-style: italic;
+    color: #444;
+    font-size: 12px;
+}
+
+/* Footer */
+.vd-footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 8px;
+}
+
+.vd-source-link {
+    font-size: 12px;
+    color: #888;
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+.vd-source-link:hover {
+    color: #12439a;
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .vd-form-grid {
+        grid-template-columns: 1fr;
+    }
+    .vd-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+    .vd-table th:nth-child(1),
+    .vd-table td:nth-child(1) {
+        display: none;
+    }
+}
