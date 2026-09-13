@@ -1,13 +1,13 @@
 'use client';
 import { useState } from 'react';
 import Navbar from '@/components/Navbar';
-import Link from 'next/link';
 
 export default function VademecumCeliacos() {
   const [medicamento, setMedicamento] = useState('');
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [debug, setDebug] = useState(null);
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -18,18 +18,27 @@ export default function VademecumCeliacos() {
     setError('');
     setLoading(true);
     setResults(null);
+    setDebug(null);
 
     try {
       const res = await fetch('/api/vademecum', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          medicamento: medicamento.trim(),
-        }),
+        body: JSON.stringify({ medicamento: medicamento.trim() }),
       });
-      const data = await res.json();
+
+      let data;
+      const text = await res.text();
+      try {
+        data = JSON.parse(text);
+      } catch {
+        throw new Error(`Respuesta inválida del servidor: ${text.slice(0, 200)}`);
+      }
+
       if (!res.ok) throw new Error(data.error || 'Error en la búsqueda');
-      setResults(data.results);
+
+      setResults(data.results ?? []);
+      if (data.debug) setDebug(data.debug);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -150,6 +159,7 @@ export default function VademecumCeliacos() {
                       <th>Nombre Comercial</th>
                       <th>Forma</th>
                       <th>Presentación</th>
+                      <th>Código de Barras</th>
                       <th>Droga / Principio Activo</th>
                     </tr>
                   </thead>
@@ -163,6 +173,7 @@ export default function VademecumCeliacos() {
                           <span className="vd-pill">{item.forma}</span>
                         </td>
                         <td>{item.presentacion}</td>
+                        <td className="vd-cell-mono">{item.codigoBarras}</td>
                         <td className="vd-cell-droga">{item.droga}</td>
                       </tr>
                     ))}
@@ -171,6 +182,16 @@ export default function VademecumCeliacos() {
               </div>
             )}
           </div>
+        )}
+
+        {/* Debug info (shown when results are empty but debug info exists) */}
+        {debug && (
+          <details className="vd-debug">
+            <summary>🛠 Información de diagnóstico (debug)</summary>
+            <pre style={{ fontSize: '11px', overflow: 'auto', maxHeight: '300px', whiteSpace: 'pre-wrap' }}>
+              {JSON.stringify(debug, null, 2)}
+            </pre>
+          </details>
         )}
 
         {/* Footer source */}

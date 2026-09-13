@@ -1981,3 +1981,19 @@
         display: none;
     }
 }
+
+.vd-debug {
+    background: #1a1a2e;
+    color: #e0e0e0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-family: monospace;
+    font-size: 12px;
+    cursor: pointer;
+}
+.vd-debug summary {
+    font-weight: 600;
+    color: #f39200;
+    margin-bottom: 8px;
+}
