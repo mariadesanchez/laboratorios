@@ -81,7 +81,7 @@ export default function VademecumCeliacos() {
           </div>
           <div>
             <h1 className="vd-title">Vademecum Celíacos</h1>
-            <p className="vd-subtitle">Consultá medicamentos aptos en el Vademecum PAMI</p>
+            <p className="vd-subtitle">Consultá medicamentos aptos en el Vademecum</p>
           </div>
         </div>
 
@@ -132,7 +132,7 @@ export default function VademecumCeliacos() {
               {loading ? (
                 <>
                   <span className="vd-spinner" />
-                  Consultando PAMI...
+                  Consultando vademecum...
                 </>
               ) : (
                 <>
@@ -152,7 +152,7 @@ export default function VademecumCeliacos() {
 
           {loading && (
             <p className="vd-loading-note">
-              ⏳ El vademecum PAMI puede demorar entre 10 y 20 segundos en responder...
+              ⏳ La consulta puede demorar entre 10 y 20 segundos en responder...
             </p>
           )}
         </form>
@@ -199,7 +199,7 @@ export default function VademecumCeliacos() {
                             <span
                               className="vd-status-emoji"
                               title="Apto Celíaco (Contiene isologo Sin T.A.C.C.)"
-                              style={{ fontSize: '18px', cursor: 'default' }}
+                              style={{ fontSize: '20px', display: 'inline-block', lineHeight: 1 }}
                             >
                               ✅
                             </span>
@@ -207,7 +207,7 @@ export default function VademecumCeliacos() {
                             <span
                               className="vd-status-emoji"
                               title="No figura Apto Celíaco"
-                              style={{ fontSize: '18px', cursor: 'default' }}
+                              style={{ fontSize: '20px', display: 'inline-block', lineHeight: 1 }}
                             >
                               ❌
                             </span>
@@ -248,7 +248,7 @@ export default function VademecumCeliacos() {
             rel="noopener noreferrer"
             className="vd-source-link"
           >
-            🔗 Fuente: Vademecum PAMI (Consulta Pública)
+            🔗 Fuente: Vademecum (Consulta Pública)
           </a>
         </div>
       </div>

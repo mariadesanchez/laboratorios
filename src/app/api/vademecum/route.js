@@ -237,7 +237,7 @@ export async function POST(request) {
     if (!dtid || !zkauUrl) {
       return Response.json(
         {
-          error: 'No se pudo obtener la sesión del vademecum PAMI. Intentá de nuevo.',
+          error: 'No se pudo obtener la sesión del vademecum. Intentá de nuevo.',
           debug: { dtid, zkauUrl, htmlSnippet: pageHtml.slice(0, 1000) },
         },
         { status: 502 }
