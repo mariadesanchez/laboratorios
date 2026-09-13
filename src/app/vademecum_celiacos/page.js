@@ -154,6 +154,7 @@ export default function VademecumCeliacos() {
                 <table className="vd-table">
                   <thead>
                     <tr>
+                      <th>Apto Celíaco</th>
                       <th>Registro</th>
                       <th>Laboratorio</th>
                       <th>Nombre Comercial</th>
@@ -166,6 +167,9 @@ export default function VademecumCeliacos() {
                   <tbody>
                     {results.map((item, idx) => (
                       <tr key={idx} className={idx % 2 === 0 ? 'vd-row-even' : 'vd-row-odd'}>
+                        <td style={{ textAlign: 'center', fontSize: '1.2rem' }}>
+                          {item.isAptoCeliaco ? '✅' : '❌'}
+                        </td>
                         <td className="vd-cell-mono">{item.registro}</td>
                         <td>{item.laboratorio}</td>
                         <td className="vd-cell-bold">{item.nombreComercial}</td>
