@@ -1101,17 +1101,19 @@
         /* Responsive tweaks */
         @media (max-width: 768px) {
             body {
-                padding-top: 115px;
+                padding-top: 58px;
                 padding-left: 4px;
                 padding-right: 4px;
                 overflow-x: hidden;
             }
 
             .nav-container {
-                flex-direction: column;
+                flex-direction: row;
+                flex-wrap: wrap;
                 height: auto;
-                padding: 8px;
-                gap: 8px;
+                padding: 6px 8px;
+                gap: 6px;
+                align-items: center;
             }
 
             .nav-logo:empty {
@@ -1122,9 +1124,9 @@
                 position: static;
                 left: auto;
                 transform: none;
-                width: 100%;
-                max-width: 100%;
-                margin: 0 auto;
+                flex: 1 1 auto;
+                min-width: 120px;
+                margin: 0;
                 padding: 0;
                 box-sizing: border-box;
             }
@@ -1132,15 +1134,14 @@
             #searchInput {
                 width: 100%;
                 max-width: 100%;
-                font-size: 16px;
-                height: 38px;
+                font-size: 15px;
+                height: 32px;
+                padding: 4px 14px;
                 box-sizing: border-box;
             }
 
             .nav-buttons {
-                width: 100%;
-                justify-content: center;
-                gap: 8px;
+                display: none;
             }
 
             .cabinet-wrapper {
@@ -1450,16 +1451,18 @@
         /* Responsive tweaks */
         @media (max-width: 768px) {
             body {
-                padding-top: 115px;
+                padding-top: 58px;
                 padding-left: 6px;
                 padding-right: 6px;
                 overflow-x: hidden;
             }
             .nav-container {
-                flex-direction: column;
+                flex-direction: row;
+                flex-wrap: wrap;
                 height: auto;
-                padding: 8px;
-                gap: 8px;
+                padding: 6px 8px;
+                gap: 6px;
+                align-items: center;
             }
             .nav-logo:empty {
                 display: none;
@@ -1468,23 +1471,22 @@
                 position: static;
                 left: auto;
                 transform: none;
-                width: 100%;
-                max-width: 100%;
-                margin: 0 auto;
+                flex: 1 1 auto;
+                min-width: 120px;
+                margin: 0;
                 padding: 0;
                 box-sizing: border-box;
             }
             #searchInput {
                 width: 100%;
                 max-width: 100%;
-                font-size: 16px;
-                height: 38px;
+                font-size: 15px;
+                height: 32px;
+                padding: 4px 14px;
                 box-sizing: border-box;
             }
             .nav-buttons {
-                width: 100%;
-                justify-content: center;
-                gap: 8px;
+                display: none;
             }
             .table-container {
                 overflow-x: auto;
@@ -1507,7 +1509,7 @@
                 word-break: break-word;
             }
             .nav-btn {
-                padding: 5px 12px;
+                padding: 4px 10px;
                 font-size: 12px;
             }
             .code-badge {
