@@ -200,16 +200,23 @@ async function checkDetailsSequentially(rows, dtid, zkauUrl, jsession) {
 
 export async function POST(request) {
   try {
-    const { medicamento = '' } = await request.json();
+    const {
+      medicamento = '',
+      codigo_barras = '',
+      codigoBarras = '',
+    } = await request.json();
 
-    if (!medicamento.trim()) {
+    const medTerm = medicamento ? medicamento.trim() : '';
+    const barcodeTerm = (codigo_barras || codigoBarras)
+      ? (codigo_barras || codigoBarras).trim()
+      : '';
+
+    if (!medTerm && !barcodeTerm) {
       return Response.json(
-        { error: 'Ingresá el nombre comercial del medicamento.' },
+        { error: 'Ingresá el nombre comercial o código de barras para buscar.' },
         { status: 400 }
       );
     }
-
-    const term = medicamento.trim();
 
     // 1. GET page – session + ZK metadata
     const pageRes = await fetch(LIST_URL, {
@@ -247,11 +254,34 @@ export async function POST(request) {
       Cookie:             jsession ? `JSESSIONID=${jsession}` : '',
     };
 
-    // 2. onChange – type in the search box
-    const changeBody = buildAuBody(dtid, [
-      { cmd: 'onChanging', uuid: 'zk_comp_34', data: { start: 0, end: term.length, value: term } },
-      { cmd: 'onChange',   uuid: 'zk_comp_34', data: { value: term } },
-    ]);
+    // 2. onChange – set input values for name and/or barcode
+    const commands = [];
+    if (medTerm) {
+      commands.push({
+        cmd: 'onChanging',
+        uuid: 'zk_comp_34',
+        data: { start: 0, end: medTerm.length, value: medTerm },
+      });
+      commands.push({
+        cmd: 'onChange',
+        uuid: 'zk_comp_34',
+        data: { value: medTerm },
+      });
+    }
+    if (barcodeTerm) {
+      commands.push({
+        cmd: 'onChanging',
+        uuid: 'zk_comp_73',
+        data: { start: 0, end: barcodeTerm.length, value: barcodeTerm },
+      });
+      commands.push({
+        cmd: 'onChange',
+        uuid: 'zk_comp_73',
+        data: { value: barcodeTerm },
+      });
+    }
+
+    const changeBody = buildAuBody(dtid, commands);
     await fetch(zkauUrl, { method: 'POST', headers, body: changeBody });
 
     await new Promise((r) => setTimeout(r, 600));

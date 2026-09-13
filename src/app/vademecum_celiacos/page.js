@@ -4,15 +4,20 @@ import Navbar from '@/components/Navbar';
 
 export default function VademecumCeliacos() {
   const [medicamento, setMedicamento] = useState('');
+  const [codigoBarras, setCodigoBarras] = useState('');
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [debug, setDebug] = useState(null);
+  const [searchedQuery, setSearchedQuery] = useState('');
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    if (!medicamento.trim()) {
-      setError('Ingresá el nombre comercial del medicamento.');
+    const med = medicamento.trim();
+    const barcode = codigoBarras.trim();
+
+    if (!med && !barcode) {
+      setError('Ingresá el nombre comercial o código de barras del medicamento.');
       return;
     }
     setError('');
@@ -20,11 +25,17 @@ export default function VademecumCeliacos() {
     setResults(null);
     setDebug(null);
 
+    const queryDisplay = [med, barcode].filter(Boolean).join(' · ');
+    setSearchedQuery(queryDisplay);
+
     try {
       const res = await fetch('/api/vademecum', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ medicamento: medicamento.trim() }),
+        body: JSON.stringify({
+          medicamento: med,
+          codigo_barras: barcode,
+        }),
       });
 
       let data;
@@ -48,8 +59,10 @@ export default function VademecumCeliacos() {
 
   const handleClear = () => {
     setMedicamento('');
+    setCodigoBarras('');
     setResults(null);
     setError('');
+    setSearchedQuery('');
   };
 
   return (
@@ -74,7 +87,7 @@ export default function VademecumCeliacos() {
 
         {/* Search Form */}
         <form onSubmit={handleSearch} className="vd-form">
-          <div className="vd-form-grid" style={{ gridTemplateColumns: '1fr' }}>
+          <div className="vd-form-grid">
             <div className="vd-field">
               <label htmlFor="vd-med" className="vd-label">
                 <span className="vd-label-icon">💊</span>
@@ -88,7 +101,22 @@ export default function VademecumCeliacos() {
                 value={medicamento}
                 onChange={(e) => setMedicamento(e.target.value)}
                 autoComplete="off"
-                required
+              />
+            </div>
+
+            <div className="vd-field">
+              <label htmlFor="vd-barcode" className="vd-label">
+                <span className="vd-label-icon">🏷️</span>
+                Código de Barras (GTIN / EAN)
+              </label>
+              <input
+                id="vd-barcode"
+                type="text"
+                className="vd-input"
+                placeholder="Ej: 7795345011585..."
+                value={codigoBarras}
+                onChange={(e) => setCodigoBarras(e.target.value)}
+                autoComplete="off"
               />
             </div>
           </div>
@@ -115,7 +143,7 @@ export default function VademecumCeliacos() {
                 </>
               )}
             </button>
-            {(results !== null || medicamento) && (
+            {(results !== null || medicamento || codigoBarras) && (
               <button type="button" className="vd-btn-clear" onClick={handleClear}>
                 Limpiar
               </button>
@@ -138,8 +166,8 @@ export default function VademecumCeliacos() {
                   ? 'Sin resultados'
                   : `${results.length} resultado${results.length !== 1 ? 's' : ''} encontrado${results.length !== 1 ? 's' : ''}`}
               </h2>
-              {results.length > 0 && (
-                <span className="vd-results-badge">{medicamento}</span>
+              {results.length > 0 && searchedQuery && (
+                <span className="vd-results-badge">{searchedQuery}</span>
               )}
             </div>
 
