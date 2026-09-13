@@ -64,48 +64,13 @@ function parseResults(zkText) {
     return { rows: [] };
   }
 
-  // ZK responses for lists usually create Listitems.
-  // We can split the text by 'zul.sel.Listitem' to process row by row.
-  const rowChunks = zkText.split(/(?='zul\.sel\.Listitem')/);
+  // ZK list uses zul.grid.Row
+  const rowChunks = zkText.split(/(?='zul\.grid\.Row')/);
   
-  // If the list is empty or structure is different, fallback to the original method but safely
   if (rowChunks.length <= 1) {
-    // Attempt standard label parsing as fallback
-    const labelRe = /'zul\.wgt\.Label','[^']+',\{[^}]*value:'((?:[^'\\]|\\.)*)'/g;
-    const labels = [];
-    let m;
-    while ((m = labelRe.exec(zkText)) !== null) {
-      labels.push(m[1].replace(/\\'/g, "'").replace(/\\[nt]/g, ' ').trim());
-    }
-    if (labels.length === 0) return null;
-    
-    const imageRe = /'zul\.wgt\.Image','[^']+',\{[^}]*src:'((?:[^'\\]|\\.)*)'/g;
-    const imageSrcs = [];
-    while ((m = imageRe.exec(zkText)) !== null) {
-      imageSrcs.push(m[1]);
-    }
-
-    const COLS = 7;
-    const rows = [];
-    for (let i = 0; i + COLS - 1 < labels.length; i += COLS) {
-      const rowIdx = Math.floor(i / COLS);
-      const isAptoCeliaco = zkText.includes('isologo1.jpg'); // Rough fallback
-      rows.push({
-        registro:        labels[i]     ?? '',
-        laboratorio:     labels[i + 1] ?? '',
-        nombreComercial: labels[i + 2] ?? '',
-        forma:           labels[i + 3] ?? '',
-        presentacion:    labels[i + 4] ?? '',
-        codigoBarras:    labels[i + 5] ?? '',
-        droga:           labels[i + 6] ?? '',
-        imageSrc:        imageSrcs[rowIdx] ?? null,
-        isAptoCeliaco:   isAptoCeliaco,
-      });
-    }
-    return { rows };
+    return null;
   }
 
-  // We have row chunks. Skip the first chunk (it's the preamble).
   const rows = [];
   for (let i = 1; i < rowChunks.length; i++) {
     const chunk = rowChunks[i];
@@ -118,21 +83,7 @@ function parseResults(zkText) {
       labels.push(m[1].replace(/\\'/g, "'").replace(/\\[nt]/g, ' ').trim());
     }
     
-    if (labels.length < 7) continue; // Not a valid row
-    
-    // Extract images for this specific row
-    const imageRe = /'zul\.wgt\.Image','[^']+',\{[^}]*src:'((?:[^'\\]|\\.)*)'/g;
-    const imageSrcs = [];
-    while ((m = imageRe.exec(chunk)) !== null) {
-      imageSrcs.push(m[1]);
-    }
-    
-    // Check for apto celiaco image (just in case it ever appears in the list view)
-    const isAptoCeliaco = imageSrcs.some(src => src.includes('isologo1.jpg'));
-    
-    // The product image is usually the first one that is NOT the celiac isologo, 
-    // or we just take the first one if we can't tell
-    const productImgSrc = imageSrcs.find(src => !src.includes('isologo1.jpg')) || null;
+    if (labels.length < 7) continue;
 
     // Extract the "Ver Detalles" button UUID
     const detailBtnMatch = chunk.match(/'zul\.wgt\.A','(zk_comp_\d+)',\{[^}]*tooltiptext:'Ver Detalles'/);
@@ -146,8 +97,7 @@ function parseResults(zkText) {
       presentacion:    labels[4] ?? '',
       codigoBarras:    labels[5] ?? '',
       droga:           labels[6] ?? '',
-      imageSrc:        productImgSrc,
-      isAptoCeliaco:   isAptoCeliaco, // Will be enriched later if false
+      isAptoCeliaco:   false,
       detailBtnUuid:   detailBtnUuid
     });
   }
@@ -158,7 +108,7 @@ function parseResults(zkText) {
 
 /**
  * For each row, sequentially click "Ver Detalles" to load the detail page and check for the celiac isologo.
- * ZK session state must be handled sequentially.
+ * Then clicks "Volver a la consulta" to return to listado.zul for the next row.
  */
 async function checkDetailsSequentially(rows, dtid, zkauUrl, jsession) {
   const getHeaders = {
@@ -177,9 +127,9 @@ async function checkDetailsSequentially(rows, dtid, zkauUrl, jsession) {
   const enrichedRows = [];
   
   for (const row of rows) {
-    let isAptoCeliaco = row.isAptoCeliaco;
+    let isAptoCeliaco = false;
     
-    if (!isAptoCeliaco && row.detailBtnUuid) {
+    if (row.detailBtnUuid) {
       try {
         // 1. Click "Ver Detalles"
         const p = new URLSearchParams();
@@ -200,13 +150,46 @@ async function checkDetailsSequentially(rows, dtid, zkauUrl, jsession) {
         if (detailHtml.includes('isologo1.jpg')) {
           isAptoCeliaco = true;
         }
+
+        // 3. Return to list: Click "Volver a la consulta"
+        const backBtnMatch = detailHtml.match(/'zul\.wgt\.Button','(zk_comp_\d+)',\{[^}]*label:'Volver a la consulta'/);
+        const presDtid = extractDtid(detailHtml);
+        const presZkau = extractZkauUrl(detailHtml);
+
+        if (backBtnMatch && presDtid && presZkau) {
+          const backBody = buildAuBody(presDtid, [
+            {
+              cmd: 'onClick',
+              uuid: backBtnMatch[1],
+              data: { x: 0, y: 0, pageX: 0, pageY: 0, which: 1, ctrlKey: false, shiftKey: false, altKey: false, metaKey: false }
+            }
+          ]);
+          await fetch(presZkau, {
+            method: 'POST',
+            headers: {
+              'User-Agent': UA,
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'Cookie': jsession ? `JSESSIONID=${jsession}` : '',
+              'Referer': 'https://servicios.pami.org.ar/vademecum/views/consultaPublica/presentacion.zul'
+            },
+            body: backBody
+          });
+
+          await fetch('https://servicios.pami.org.ar/vademecum/views/consultaPublica/listado.zul?volver', {
+            headers: {
+              'User-Agent': UA,
+              'Cookie': jsession ? `JSESSIONID=${jsession}` : '',
+              'Referer': 'https://servicios.pami.org.ar/vademecum/views/consultaPublica/presentacion.zul'
+            }
+          });
+        }
       } catch (err) {
         console.error('Error fetching details for row', row.registro, err);
       }
     }
     
     // Strip internal fields we don't need to send to the client
-    const { imageSrc, detailBtnUuid, ...rest } = row;
+    const { detailBtnUuid, ...rest } = row;
     enrichedRows.push({ ...rest, isAptoCeliaco });
   }
   

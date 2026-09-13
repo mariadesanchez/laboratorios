@@ -167,8 +167,27 @@ export default function VademecumCeliacos() {
                   <tbody>
                     {results.map((item, idx) => (
                       <tr key={idx} className={idx % 2 === 0 ? 'vd-row-even' : 'vd-row-odd'}>
-                        <td style={{ textAlign: 'center', fontSize: '1.2rem' }}>
-                          {item.isAptoCeliaco ? '✅' : '❌'}
+                        <td style={{ textAlign: 'center' }}>
+                          {item.isAptoCeliaco ? (
+                            <span
+                              className="vd-status-icon apto"
+                              title="Apto Celíaco (Contiene isologo Sin T.A.C.C.)"
+                            >
+                              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                <polyline points="20 6 9 17 4 12" />
+                              </svg>
+                            </span>
+                          ) : (
+                            <span
+                              className="vd-status-icon no-apto"
+                              title="No figura Apto Celíaco"
+                            >
+                              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                              </svg>
+                            </span>
+                          )}
                         </td>
                         <td className="vd-cell-mono">{item.registro}</td>
                         <td>{item.laboratorio}</td>

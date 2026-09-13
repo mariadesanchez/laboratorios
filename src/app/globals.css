@@ -1966,6 +1966,31 @@
     text-decoration: underline;
 }
 
+/* Status Icons */
+.vd-status-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    transition: transform 0.15s ease;
+}
+
+.vd-status-icon:hover {
+    transform: scale(1.15);
+}
+
+.vd-status-icon.apto {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.vd-status-icon.no-apto {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
 /* Responsive */
 @media (max-width: 600px) {
     .vd-form-grid {
@@ -1975,10 +2000,6 @@
         flex-direction: column;
         text-align: center;
         padding: 20px;
-    }
-    .vd-table th:nth-child(1),
-    .vd-table td:nth-child(1) {
-        display: none;
     }
 }
 
