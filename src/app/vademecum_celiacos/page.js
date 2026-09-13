@@ -108,6 +108,22 @@ export default function VademecumCeliacos() {
     setSearchedQuery('');
   };
 
+  const handleMedicamentoChange = (e) => {
+    const val = e.target.value;
+    setMedicamento(val);
+    if (val.length > 0) {
+      setCodigoBarras('');
+    }
+  };
+
+  const handleCodigoBarrasChange = (e) => {
+    const val = e.target.value;
+    setCodigoBarras(val);
+    if (val.length > 0) {
+      setMedicamento('');
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -142,7 +158,7 @@ export default function VademecumCeliacos() {
                 className="vd-input"
                 placeholder="Ej: Lotrial, Enalapril, Amoxidal..."
                 value={medicamento}
-                onChange={(e) => setMedicamento(e.target.value)}
+                onChange={handleMedicamentoChange}
                 autoComplete="off"
               />
             </div>
@@ -158,7 +174,7 @@ export default function VademecumCeliacos() {
                 className="vd-input"
                 placeholder="Ej: 7795345011585..."
                 value={codigoBarras}
-                onChange={(e) => setCodigoBarras(e.target.value)}
+                onChange={handleCodigoBarrasChange}
                 autoComplete="off"
               />
             </div>
