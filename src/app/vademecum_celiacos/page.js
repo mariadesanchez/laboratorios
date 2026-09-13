@@ -2,6 +2,49 @@
 import { useState } from 'react';
 import Navbar from '@/components/Navbar';
 
+function abbreviateForma(str) {
+  if (!str) return '';
+  let s = str.trim();
+  
+  const map = [
+    [/COMPRIMIDO(?:S)?\s+RECUBIERTO(?:S)?\s+DE\s+LIBERACI[OÓ]N\s+PROLONGADA/gi, 'Comp. Recub. Lib. Prol.'],
+    [/COMPRIMIDO(?:S)?\s+DE\s+LIBERACI[OÓ]N\s+PROLONGADA/gi, 'Comp. Lib. Prol.'],
+    [/COMPRIMIDO(?:S)?\s+RECUBIERTO(?:S)?/gi, 'Comp. Recub.'],
+    [/COMPRIMIDO(?:S)?\s+MASTICABLE(?:S)?/gi, 'Comp. Mast.'],
+    [/COMPRIMIDO(?:S)?\s+SUBLINGUAL(?:ES)?/gi, 'Comp. Subling.'],
+    [/COMPRIMIDO(?:S)?\s+EFERVESCENTE(?:S)?/gi, 'Comp. Eferv.'],
+    [/COMPRIMIDO(?:S)?\s+VAGINAL(?:ES)?/gi, 'Comp. Vaginal'],
+    [/COMPRIMIDO(?:S)?/gi, 'Comp.'],
+    [/C[AÁ]PSULA(?:S)?\s+BLANDA(?:S)?/gi, 'Cáp. Blanda'],
+    [/C[AÁ]PSULA(?:S)?\s+DURA(?:S)?/gi, 'Cáp. Dura'],
+    [/C[AÁ]PSULA(?:S)?\s+DE\s+LIBERACI[OÓ]N\s+PROLONGADA/gi, 'Cáp. Lib. Prol.'],
+    [/C[AÁ]PSULA(?:S)?/gi, 'Cáp.'],
+    [/GRANULADO\s+PARA\s+SUSPENSI[OÓ]N\s+ORAL/gi, 'Gran. Susp. Oral'],
+    [/POLVO\s+PARA\s+SUSPENSI[OÓ]N\s+ORAL/gi, 'Polvo Susp. Oral'],
+    [/POLVO\s+PARA\s+SOLUCI[OÓ]N\s+INYECTABLE/gi, 'Polvo Sol. Iny.'],
+    [/POLVO\s+PARA\s+SOLUCI[OÓ]N\s+ORAL/gi, 'Polvo Sol. Oral'],
+    [/POLVO\s+LIOFILIZADO/gi, 'Polvo Liof.'],
+    [/SUSPENSI[OÓ]N\s+ORAL/gi, 'Susp. Oral'],
+    [/SUSPENSI[OÓ]N\s+INYECTABLE/gi, 'Susp. Iny.'],
+    [/SUSPENSI[OÓ]N/gi, 'Susp.'],
+    [/SOLUCI[OÓ]N\s+INYECTABLE/gi, 'Sol. Iny.'],
+    [/SOLUCI[OÓ]N\s+OFT[AÁ]LMICA/gi, 'Sol. Oft.'],
+    [/SOLUCI[OÓ]N\s+NASAL/gi, 'Sol. Nasal'],
+    [/SOLUCI[OÓ]N\s+ORAL/gi, 'Sol. Oral'],
+    [/SOLUCI[OÓ]N\s+T[OÓ]PICA/gi, 'Sol. Tópica'],
+    [/SOLUCI[OÓ]N/gi, 'Sol.'],
+    [/INYECTABLE(?:S)?/gi, 'Iny.'],
+  ];
+
+  for (const [re, repl] of map) {
+    if (re.test(s)) {
+      return s.replace(re, repl);
+    }
+  }
+
+  return s;
+}
+
 export default function VademecumCeliacos() {
   const [medicamento, setMedicamento] = useState('');
   const [codigoBarras, setCodigoBarras] = useState('');
@@ -182,12 +225,12 @@ export default function VademecumCeliacos() {
                 <table className="vd-table">
                   <thead>
                     <tr>
-                      <th>Apto Celíaco</th>
+                      <th style={{ textAlign: 'center', width: '60px' }}>Apto</th>
                       <th>Laboratorio</th>
-                      <th>Nombre Comercial</th>
+                      <th>Nom. Comercial</th>
                       <th>Forma</th>
                       <th>Presentación</th>
-                      <th>Código de Barras</th>
+                      <th>Cód. Barras</th>
                       <th>Droga / Principio Activo</th>
                     </tr>
                   </thead>
@@ -216,7 +259,9 @@ export default function VademecumCeliacos() {
                         <td>{item.laboratorio}</td>
                         <td className="vd-cell-bold">{item.nombreComercial}</td>
                         <td>
-                          <span className="vd-pill">{item.forma}</span>
+                          <span className="vd-pill" title={item.forma}>
+                            {abbreviateForma(item.forma)}
+                          </span>
                         </td>
                         <td>{item.presentacion}</td>
                         <td className="vd-cell-mono">{item.codigoBarras}</td>
