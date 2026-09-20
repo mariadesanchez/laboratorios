@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciando Validador...</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f4f8;
+            margin: 0;
+            color: #333;
+        }
+        .loader {
+            border: 5px solid #e2e8f0;
+            border-top: 5px solid #0056b3;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        form { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="loader"></div>
+    <h3>Conectando al Validador OSDEPYM...</h3>
+    <p style="color: #666; font-size: 14px;">Serás redirigido en un instante.</p>
+    
+    <form id="autoLoginForm" method="POST" action="http://farmaciasnet.gmssa.com.ar/User/Login?ReturnUrl=%2fValidador%2fValidadorOSDEPYM">
+        <input type="hidden" name="txtUsuario" value="149">
+        <input type="hidden" name="password" value="2020">
+    </form>
+
+    <script>
+        window.onload = function() {
+            setTimeout(function() {
+                document.getElementById('autoLoginForm').submit();
+            }, 800);
+        };
+    </script>
+
+</body>
+</html>

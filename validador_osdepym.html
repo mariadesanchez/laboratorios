@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validador OSDEPYM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #004494;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Ingreso al Validador OSDEPYM</h2>
+    <p>Haz clic en el botón para iniciar sesión automáticamente.</p>
+    
+    <form id="loginForm" method="POST" action="http://example.com/User/Login?ReturnUrl=%2fValidador%2fValidadorOSDEPYM">
+        <!-- Reemplaza "tu_usuario" y "tu_contraseña" por tus credenciales reales -->
+        <input type="hidden" name="txtUsuario" value="tu_usuario">
+        <input type="hidden" name="password" value="tu_contraseña">
+        <button type="submit">Entrar</button>
+    </form>
+</div>
+
+<script>
+    // Descomentar la siguiente línea para que el formulario se envíe automáticamente al abrir el archivo
+    // document.getElementById('loginForm').submit();
+</script>
+
+</body>
+</html>
