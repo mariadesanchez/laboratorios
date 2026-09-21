@@ -131,6 +131,158 @@
             border-color: #f39200;
         }
 
+        .nav-btn-auth {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn-auth:hover {
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        .nav-btn-ingresar {
+            background: #f39200;
+            color: #000;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn-ingresar:hover {
+            background: #e08000;
+        }
+
+        /* ── Hamburger button ── */
+        .hamburger-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            margin-left: auto;
+            border-radius: 8px;
+            transition: background 0.2s ease;
+        }
+
+        .hamburger-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .hamburger-btn span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: white;
+            border-radius: 2px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform-origin: center;
+        }
+
+        /* Animación X cuando está abierto */
+        .hamburger-btn.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+        .hamburger-btn.open span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .hamburger-btn.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* ── Mobile dropdown menu ── */
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            background: #0e3688;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .mobile-menu--open {
+            max-height: 400px;
+            opacity: 1;
+        }
+
+        .mobile-nav-btn {
+            display: block;
+            padding: 14px 24px;
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .mobile-nav-btn:hover,
+        .mobile-nav-btn.active {
+            background: rgba(243, 146, 0, 0.15);
+            color: #f39200;
+        }
+
+        .mobile-nav-btn.active {
+            border-left: 3px solid #f39200;
+            padding-left: 21px;
+        }
+
+        .mobile-menu-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 4px 0;
+        }
+
+        .mobile-auth {
+            padding: 14px 24px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .mobile-auth .nav-btn-ingresar,
+        .mobile-auth .nav-btn-auth {
+            font-size: 14px;
+            padding: 8px 18px;
+        }
+
+        /* ── Responsive: mostrar hamburguesa en mobile ── */
+        @media (max-width: 640px) {
+            .nav-buttons {
+                display: none;
+            }
+
+            .hamburger-btn {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .search-container input {
+                font-size: 15px;
+            }
+        }
+
         .cabinet-wrapper {
             perspective: 1000px;
             width: 100%;
@@ -1346,6 +1498,111 @@
             background-color: #f39200; /* TKL Orange */
             color: white;
             border-color: #f39200;
+        }
+
+        .nav-btn-auth {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .nav-btn-auth:hover {
+            background: rgba(255, 255, 255, 0.35);
+        }
+        .nav-btn-ingresar {
+            background: #f39200;
+            color: #000;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        .nav-btn-ingresar:hover {
+            background: #e08000;
+        }
+
+        /* ── Hamburger button ── */
+        .hamburger-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            margin-left: auto;
+            border-radius: 8px;
+            transition: background 0.2s ease;
+        }
+        .hamburger-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+        .hamburger-btn span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: white;
+            border-radius: 2px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform-origin: center;
+        }
+        .hamburger-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .hamburger-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* ── Mobile dropdown menu ── */
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            background: #0e3688;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+            opacity: 0;
+        }
+        .mobile-menu--open { max-height: 400px; opacity: 1; }
+        .mobile-nav-btn {
+            display: block;
+            padding: 14px 24px;
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+        .mobile-nav-btn:hover,
+        .mobile-nav-btn.active {
+            background: rgba(243, 146, 0, 0.15);
+            color: #f39200;
+        }
+        .mobile-nav-btn.active {
+            border-left: 3px solid #f39200;
+            padding-left: 21px;
+        }
+        .mobile-menu-divider { height: 1px; background: rgba(255,255,255,0.1); margin: 4px 0; }
+        .mobile-auth { padding: 14px 24px; display: flex; gap: 10px; }
+        .mobile-auth .nav-btn-ingresar,
+        .mobile-auth .nav-btn-auth { font-size: 14px; padding: 8px 18px; }
+
+        /* ── Responsive ── */
+        @media (max-width: 640px) {
+            .nav-buttons { display: none; }
+            .hamburger-btn { display: flex; }
+            .mobile-menu { display: flex; }
         }
 
         .search-container {
