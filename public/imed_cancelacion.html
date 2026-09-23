@@ -446,18 +446,14 @@
                 <p class="step-desc">
                     Al ingresar, IMED te pedirá seleccionar <b>PAMI</b> e ingresar el <b>Número de socio</b> (Beneficiario). Luego te pedirá el Nro. de Referencia.
                 </p>
-                <a class="btn btn-danger"
-                   href="https://www.imed.com.ar/AutorizadorWeb/Beneficiario/LoginCan"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   onclick="marcarLogueado()">
+                <button class="btn btn-danger" onclick="abrirCancelaciones()">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
                         <circle cx="12" cy="12" r="10"/>
                         <line x1="15" y1="9" x2="9" y2="15"/>
                         <line x1="9" y1="9" x2="15" y2="15"/>
                     </svg>
-                    Ir a Cancelaciones
-                </a>
+                    Ir a Cancelaciones (Automático)
+                </button>
                 <div class="status-row">
                     <span class="dot" id="dot2"></span>
                     <span id="status2">Disponible luego del login</span>
@@ -581,7 +577,23 @@
         document.getElementById('dot2').className = 'dot pulse';
     }
 
-    // ── Paso 2: confirmar login ───────────────────────────────
+    // ── Paso 2: abrir cancelaciones automático ─────────────────
+    function abrirCancelaciones() {
+        const ben = document.getElementById('inpBeneficiario').value.trim();
+        const ref = document.getElementById('inpRefnum').value.trim();
+        
+        // URL base de IMED LoginCan
+        let url = 'https://www.imed.com.ar/AutorizadorWeb/Beneficiario/LoginCan';
+        
+        // Si la extensión de Chrome está instalada, leerá estos parámetros de la URL
+        if (ben && ref) {
+            url += `?auto_beneficiario=${encodeURIComponent(ben)}&auto_refnum=${encodeURIComponent(ref)}`;
+        }
+        
+        window.open(url, 'imed_cancelaciones');
+        marcarLogueado();
+    }
+
     function marcarLogueado() {
         document.getElementById('step1').classList.remove('active-step');
         document.getElementById('step1').classList.add('done-step');
@@ -590,7 +602,7 @@
         document.getElementById('status1').textContent = 'Sesión iniciada';
 
         document.getElementById('dot2').className = 'dot green';
-        document.getElementById('status2').textContent = 'Abriendo Cancelaciones...';
+        document.getElementById('status2').textContent = 'Cancelación enviada o pendiente en la pestaña...';
     }
 </script>
 </body>
