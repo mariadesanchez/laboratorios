@@ -275,8 +275,8 @@
             50% { opacity: 0.35; }
         }
 
-        /* ── Copiar referencia box ── */
-        .refnum-copy {
+        /* ── Copiar box (compartido para Beneficiario y Referencia) ── */
+        .copy-box {
             display: none;
             background: #fff1f2;
             border: 1.5px dashed #fca5a5;
@@ -287,9 +287,13 @@
             gap: 10px;
         }
 
-        .refnum-copy.visible { display: flex; }
+        .copy-box.visible { display: flex; }
+        .copy-box.blue {
+            background: #eff6ff;
+            border-color: #93c5fd;
+        }
 
-        .refnum-copy-label {
+        .copy-label {
             font-size: 10px;
             font-weight: 700;
             color: #b91c1c;
@@ -297,14 +301,16 @@
             letter-spacing: 0.4px;
             white-space: nowrap;
         }
+        .copy-box.blue .copy-label { color: #1d4ed8; }
 
-        .refnum-copy-value {
+        .copy-value {
             font-size: 17px;
             font-weight: 800;
             color: #dc2626;
             letter-spacing: 1.5px;
             flex: 1;
         }
+        .copy-box.blue .copy-value { color: #1d4ed8; }
 
         .btn-copy {
             padding: 6px 12px;
@@ -318,9 +324,10 @@
             white-space: nowrap;
             transition: background 0.15s;
         }
+        .copy-box.blue .btn-copy { background: #2563eb; }
 
-        .btn-copy:hover { background: #b91c1c; }
-        .btn-copy.copied { background: #22c55e; }
+        .btn-copy:hover { filter: brightness(0.9); }
+        .btn-copy.copied { background: #22c55e !important; }
 
         /* ── Tip ── */
         .tip {
@@ -378,10 +385,11 @@
 
         <!-- Beneficiario -->
         <div class="field-group">
-            <label>Beneficiario</label>
+            <label>Beneficiario (Nro. de socio)</label>
             <input type="text" id="inpBeneficiario"
                    placeholder="Nro. de beneficiario"
-                   inputmode="numeric" maxlength="20">
+                   inputmode="numeric" maxlength="20"
+                   oninput="onBeneficiarioChange()">
         </div>
 
         <!-- Nro. Referencia -->
@@ -436,10 +444,10 @@
                     <span class="step-title">Ir a Cancelaciones</span>
                 </div>
                 <p class="step-desc">
-                    Una vez logueado en IMED, hacé clic para ir directo a la sección de cancelación de recetas.
+                    Al ingresar, IMED te pedirá seleccionar <b>PAMI</b> e ingresar el <b>Número de socio</b> (Beneficiario). Luego te pedirá el Nro. de Referencia.
                 </p>
                 <a class="btn btn-danger"
-                   href="https://www.imed.com.ar/AutorizadorWeb/Cancelacion/Index"
+                   href="https://www.imed.com.ar/AutorizadorWeb/Beneficiario/LoginCan"
                    target="_blank"
                    rel="noopener noreferrer"
                    onclick="marcarLogueado()">
@@ -455,13 +463,24 @@
                     <span id="status2">Disponible luego del login</span>
                 </div>
 
-                <!-- Copia rápida del Nro. Referencia -->
-                <div class="refnum-copy" id="refnumCopy">
+                <!-- Copia rápida del Beneficiario -->
+                <div class="copy-box blue" id="benCopyBox">
                     <div>
-                        <div class="refnum-copy-label">Nro. referencia</div>
-                        <div class="refnum-copy-value" id="refnumDisplay">—</div>
+                        <div class="copy-label">1. Beneficiario (Socio)</div>
+                        <div class="copy-value" id="benDisplay">—</div>
                     </div>
-                    <button class="btn-copy" id="btnCopy" onclick="copiarRefnum()">
+                    <button class="btn-copy" id="btnCopyBen" onclick="copiarValor('inpBeneficiario', 'btnCopyBen')">
+                        Copiar
+                    </button>
+                </div>
+
+                <!-- Copia rápida del Nro. Referencia -->
+                <div class="copy-box" id="refnumCopyBox">
+                    <div>
+                        <div class="copy-label">2. Nro. referencia</div>
+                        <div class="copy-value" id="refnumDisplay">—</div>
+                    </div>
+                    <button class="btn-copy" id="btnCopyRef" onclick="copiarValor('inpRefnum', 'btnCopyRef')">
                         Copiar
                     </button>
                 </div>
@@ -489,16 +508,27 @@
             document.getElementById('inpBeneficiario').value = saved;
             document.getElementById('chkSave').checked = true;
         }
-        // Mostrar copia si ya hay refnum
+        // Mostrar copias si ya hay datos
+        onBeneficiarioChange();
         onRefnumChange();
     })();
 
     // ── Auto-guardar beneficiario ─────────────────────────────
-    document.getElementById('inpBeneficiario').addEventListener('input', function() {
-        if (document.getElementById('chkSave').checked) {
-            localStorage.setItem(STORAGE_KEY, this.value.trim());
+    function onBeneficiarioChange() {
+        const val = document.getElementById('inpBeneficiario').value.trim();
+        const box = document.getElementById('benCopyBox');
+        const disp = document.getElementById('benDisplay');
+        if (val.length > 0) {
+            disp.textContent = val;
+            box.classList.add('visible');
+        } else {
+            box.classList.remove('visible');
         }
-    });
+        
+        if (document.getElementById('chkSave').checked) {
+            localStorage.setItem(STORAGE_KEY, val);
+        }
+    }
 
     document.getElementById('chkSave').addEventListener('change', function() {
         if (this.checked) {
@@ -511,7 +541,7 @@
     // ── Nro. Referencia: mostrar copia rápida ────────────────
     function onRefnumChange() {
         const val = document.getElementById('inpRefnum').value.trim();
-        const box  = document.getElementById('refnumCopy');
+        const box  = document.getElementById('refnumCopyBox');
         const disp = document.getElementById('refnumDisplay');
         if (val.length > 0) {
             disp.textContent = val;
@@ -521,12 +551,12 @@
         }
     }
 
-    // ── Copiar nro. referencia ───────────────────────────────
-    function copiarRefnum() {
-        const val = document.getElementById('inpRefnum').value.trim();
+    // ── Copiar valores ───────────────────────────────
+    function copiarValor(inputId, btnId) {
+        const val = document.getElementById(inputId).value.trim();
         if (!val) return;
         navigator.clipboard.writeText(val).then(() => {
-            const btn = document.getElementById('btnCopy');
+            const btn = document.getElementById(btnId);
             btn.textContent = '✓ Copiado';
             btn.classList.add('copied');
             setTimeout(() => {
