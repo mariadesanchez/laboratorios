@@ -74,10 +74,20 @@ export default function Navbar({ searchTerm, setSearchTerm }) {
                     <Link href="/vademecum_celiacos" className={`nav-btn ${pathname === '/vademecum_celiacos' ? 'active' : ''}`}>
                         Celíacos
                     </Link>
+                    <a
+                        href="/imed_cancelacion.html"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="nav-btn nav-btn-cancelacion"
+                        title="Cancelaciones IMED"
+                    >
+                        ✕ Cancelaciones
+                    </a>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                         {authButton}
                     </div>
                 </div>
+
 
                 {/* Hamburger button (solo mobile) */}
                 <button
@@ -103,6 +113,14 @@ export default function Navbar({ searchTerm, setSearchTerm }) {
                 <Link href="/vademecum_celiacos" className={`mobile-nav-btn ${pathname === '/vademecum_celiacos' ? 'active' : ''}`}>
                     🌾 Celíacos
                 </Link>
+                <a
+                    href="/imed_cancelacion.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mobile-nav-btn mobile-nav-btn-cancelacion"
+                >
+                    ✕ Cancelaciones IMED
+                </a>
                 <div className="mobile-menu-divider"></div>
                 <div className="mobile-auth">
                     {authButton}

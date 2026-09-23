@@ -163,6 +163,26 @@
             background: #e08000;
         }
 
+        .nav-btn-cancelacion {
+            background-color: #dc2626;
+            color: white !important;
+            border-color: #dc2626;
+            font-weight: 700;
+        }
+        .nav-btn-cancelacion:hover {
+            background-color: #b91c1c;
+            border-color: #b91c1c;
+            color: white;
+        }
+
+        .mobile-nav-btn-cancelacion {
+            color: #fca5a5 !important;
+        }
+        .mobile-nav-btn-cancelacion:hover {
+            background: rgba(220, 38, 38, 0.15) !important;
+            color: #fca5a5 !important;
+        }
+
         /* ── Hamburger button ── */
         .hamburger-btn {
             display: none;
@@ -1527,6 +1547,26 @@
         }
         .nav-btn-ingresar:hover {
             background: #e08000;
+        }
+
+        .nav-btn-cancelacion {
+            background-color: #dc2626;
+            color: white !important;
+            border-color: #dc2626;
+            font-weight: 700;
+        }
+        .nav-btn-cancelacion:hover {
+            background-color: #b91c1c;
+            border-color: #b91c1c;
+            color: white;
+        }
+
+        .mobile-nav-btn-cancelacion {
+            color: #fca5a5 !important;
+        }
+        .mobile-nav-btn-cancelacion:hover {
+            background: rgba(220, 38, 38, 0.15) !important;
+            color: #fca5a5 !important;
         }
 
         /* ── Hamburger button ── */
