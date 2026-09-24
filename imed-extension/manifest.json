@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "IMED Auto-Cancel",
+  "version": "1.0",
+  "description": "Automatiza la carga de datos en IMED desde el portal de farmacia",
+  "permissions": ["storage"],
+  "content_scripts": [
+    {
+      "matches": ["*://*.imed.com.ar/*"],
+      "js": ["content.js"]
+    }
+  ]
+}

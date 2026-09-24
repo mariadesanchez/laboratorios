@@ -2311,3 +2311,420 @@
     color: #f39200;
     margin-bottom: 8px;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   PAMI – Botón navbar
+   ═══════════════════════════════════════════════════════════════ */
+
+.nav-btn-pami {
+    background: linear-gradient(135deg, #009fe3 0%, #0072b8 100%);
+    color: white !important;
+    border-color: #009fe3;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 159, 227, 0.35);
+}
+.nav-btn-pami:hover {
+    background: linear-gradient(135deg, #0090d0 0%, #005fa3 100%);
+    border-color: #0090d0;
+    box-shadow: 0 4px 14px rgba(0, 159, 227, 0.5);
+    transform: translateY(-1px);
+}
+
+.mobile-nav-btn-pami {
+    color: #7dd3fc !important;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 12px 16px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+}
+.mobile-nav-btn-pami:hover {
+    background: rgba(0, 159, 227, 0.12) !important;
+    color: #bae6fd !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PAMI Modal – Backdrop y contenedor
+   ═══════════════════════════════════════════════════════════════ */
+
+.pami-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 15, 40, 0.72);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    animation: pamiBackdropIn 0.18s ease;
+}
+
+@keyframes pamiBackdropIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.pami-modal {
+    background: #fff;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 860px;
+    max-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 24px 80px rgba(0, 80, 180, 0.22), 0 8px 32px rgba(0, 0, 0, 0.18);
+    animation: pamiModalIn 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+    overflow: hidden;
+}
+
+@keyframes pamiModalIn {
+    from { opacity: 0; transform: scale(0.92) translateY(16px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Header */
+.pami-modal-header {
+    background: linear-gradient(135deg, #0072b8 0%, #009fe3 100%);
+    padding: 20px 24px 18px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    flex-shrink: 0;
+}
+.pami-modal-title-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+.pami-modal-logo {
+    font-size: 36px;
+    line-height: 1;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+.pami-modal-title {
+    margin: 0 0 2px;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    line-height: 1.2;
+}
+.pami-modal-subtitle {
+    margin: 0;
+    color: rgba(255,255,255,0.75);
+    font-size: 13px;
+}
+.pami-modal-close {
+    background: rgba(255,255,255,0.18);
+    border: none;
+    color: white;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease;
+    flex-shrink: 0;
+    line-height: 1;
+}
+.pami-modal-close:hover {
+    background: rgba(255,255,255,0.32);
+}
+
+/* Search bar */
+.pami-modal-search {
+    padding: 20px 24px 12px;
+    background: #f8faff;
+    border-bottom: 1px solid #e2eaf6;
+    flex-shrink: 0;
+}
+.pami-modal-input-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.pami-modal-input-wrapper {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.pami-modal-input-icon {
+    position: absolute;
+    left: 14px;
+    font-size: 18px;
+    pointer-events: none;
+    z-index: 1;
+}
+.pami-modal-input {
+    width: 100%;
+    padding: 12px 40px 12px 44px;
+    border: 2px solid #c8daf4;
+    border-radius: 12px;
+    font-size: 15px;
+    font-family: inherit;
+    color: #1e293b;
+    background: #fff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
+    letter-spacing: 0.5px;
+}
+.pami-modal-input:focus {
+    border-color: #009fe3;
+    box-shadow: 0 0 0 3px rgba(0, 159, 227, 0.15);
+}
+.pami-modal-input-clear {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 4px;
+    line-height: 1;
+    transition: color 0.15s;
+}
+.pami-modal-input-clear:hover { color: #ef4444; }
+.pami-modal-buscar-btn {
+    background: linear-gradient(135deg, #009fe3 0%, #0072b8 100%);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    min-width: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 10px rgba(0, 114, 184, 0.3);
+}
+.pami-modal-buscar-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #00b2ff 0%, #0082cc 100%);
+    box-shadow: 0 5px 16px rgba(0, 114, 184, 0.45);
+    transform: translateY(-1px);
+}
+.pami-modal-buscar-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+.pami-spinner {
+    width: 18px;
+    height: 18px;
+    border: 3px solid rgba(255,255,255,0.35);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: pamiSpin 0.7s linear infinite;
+    display: inline-block;
+}
+@keyframes pamiSpin {
+    to { transform: rotate(360deg); }
+}
+.pami-modal-error {
+    background: #fef2f2;
+    border: 1px solid #fca5a5;
+    border-radius: 8px;
+    color: #b91c1c;
+    padding: 10px 14px;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* Body / results */
+.pami-modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 0 8px;
+}
+.pami-modal-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+    color: #64748b;
+    font-size: 14px;
+    gap: 16px;
+}
+.pami-loading-dots {
+    display: flex;
+    gap: 8px;
+}
+.pami-loading-dots span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #009fe3;
+    animation: pamiDot 1.2s ease-in-out infinite;
+}
+.pami-loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.pami-loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes pamiDot {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+    40%            { transform: scale(1);   opacity: 1;   }
+}
+.pami-modal-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 48px 24px;
+    color: #64748b;
+    font-size: 15px;
+}
+.pami-modal-empty-icon { font-size: 48px; opacity: 0.5; }
+.pami-modal-hint {
+    padding: 32px 28px;
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.6;
+}
+.pami-modal-hint p { margin: 0 0 6px; }
+.pami-modal-hint-note { font-size: 12px; opacity: 0.75; }
+
+/* Results header */
+.pami-modal-results-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px 8px;
+}
+.pami-modal-results-count {
+    font-size: 13px;
+    color: #475569;
+    font-weight: 600;
+}
+.pami-modal-ver-pami {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* Table */
+.pami-modal-table-wrapper {
+    overflow-x: auto;
+    padding: 0 16px 16px;
+}
+.pami-modal-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    min-width: 560px;
+}
+.pami-modal-table thead tr {
+    background: linear-gradient(90deg, #0072b8, #009fe3);
+}
+.pami-modal-table th {
+    color: rgba(255,255,255,0.92);
+    font-weight: 700;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding: 10px 12px;
+    text-align: left;
+    white-space: nowrap;
+}
+.pami-modal-table td {
+    padding: 9px 12px;
+    color: #1e293b;
+    vertical-align: top;
+    border-bottom: 1px solid #e8f0fb;
+}
+.pami-row-even { background: #fff; }
+.pami-row-odd  { background: #f5f9ff; }
+.pami-modal-table tbody tr:hover {
+    background: #e8f4ff !important;
+    transition: background 0.1s ease;
+}
+.pami-td-fecha { white-space: nowrap; color: #475569; font-size: 12px; }
+.pami-td-opf code {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    background: #e8f0fb;
+    border-radius: 5px;
+    padding: 2px 6px;
+    color: #0072b8;
+    font-weight: 700;
+}
+.pami-badge-plan {
+    background: #dbeafe;
+    color: #1d4ed8;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 20px;
+    padding: 2px 9px;
+    white-space: nowrap;
+}
+.pami-td-tipo { color: #64748b; font-size: 12px; }
+.pami-productos-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.pami-productos-list li {
+    font-size: 12px;
+    color: #374151;
+    line-height: 1.4;
+}
+.pami-productos-list li::before {
+    content: '·';
+    color: #009fe3;
+    font-weight: 700;
+    margin-right: 4px;
+}
+.pami-productos-more {
+    color: #009fe3 !important;
+    font-style: italic;
+}
+.pami-productos-more::before { content: '' !important; margin: 0 !important; }
+
+/* Link utility */
+.pami-modal-link {
+    color: #009fe3;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-weight: 600;
+    transition: color 0.15s;
+}
+.pami-modal-link:hover { color: #0072b8; }
+
+/* Responsive mobile */
+@media (max-width: 600px) {
+    .pami-modal {
+        border-radius: 16px 16px 0 0;
+        max-height: 92vh;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        max-width: 100%;
+    }
+    .pami-modal-backdrop {
+        align-items: flex-end;
+        padding: 0;
+    }
+    .pami-modal-header { padding: 16px 16px 14px; }
+    .pami-modal-search { padding: 14px 16px 10px; }
+    .pami-modal-input-row { flex-direction: column; }
+    .pami-modal-buscar-btn { width: 100%; }
+}

@@ -3,11 +3,13 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 import { useState, useEffect, useRef } from 'react';
+import PamiModal from '@/components/PamiModal';
 
 export default function Navbar({ searchTerm, setSearchTerm }) {
     const pathname = usePathname();
     const { user, loading, isAdmin, signInWithGoogle, signOut } = useAuth();
     const [menuOpen, setMenuOpen] = useState(false);
+    const [pamiOpen, setPamiOpen] = useState(false);
     const menuRef = useRef(null);
 
     // Cerrar el menú al hacer click fuera
@@ -46,7 +48,7 @@ export default function Navbar({ searchTerm, setSearchTerm }) {
         )
     );
 
-    return (
+    return (<>
         <nav className="tkl-nav" ref={menuRef}>
             <div className="nav-container">
                 <div className="nav-logo"></div>
@@ -74,15 +76,14 @@ export default function Navbar({ searchTerm, setSearchTerm }) {
                     <Link href="/vademecum_celiacos" className={`nav-btn ${pathname === '/vademecum_celiacos' ? 'active' : ''}`}>
                         Celíacos
                     </Link>
-                    <a
-                        href="/imed_cancelacion.html"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="nav-btn nav-btn-cancelacion"
-                        title="Cancelaciones IMED"
+                    <button
+                        className="nav-btn nav-btn-pami"
+                        onClick={() => setPamiOpen(true)}
+                        title="Consultar autorizaciones PAMI por afiliado"
+                        id="pami-open-btn"
                     >
-                        ✕ Cancelaciones
-                    </a>
+                        🏥 PAMI
+                    </button>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                         {authButton}
                     </div>
@@ -113,19 +114,19 @@ export default function Navbar({ searchTerm, setSearchTerm }) {
                 <Link href="/vademecum_celiacos" className={`mobile-nav-btn ${pathname === '/vademecum_celiacos' ? 'active' : ''}`}>
                     🌾 Celíacos
                 </Link>
-                <a
-                    href="/imed_cancelacion.html"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mobile-nav-btn mobile-nav-btn-cancelacion"
+                <button
+                    className="mobile-nav-btn mobile-nav-btn-pami"
+                    onClick={() => { setPamiOpen(true); setMenuOpen(false); }}
                 >
-                    ✕ Cancelaciones IMED
-                </a>
+                    🏥 PAMI Afiliado
+                </button>
                 <div className="mobile-menu-divider"></div>
                 <div className="mobile-auth">
                     {authButton}
                 </div>
             </div>
         </nav>
-    );
+
+        {pamiOpen && <PamiModal onClose={() => setPamiOpen(false)} />}
+    </>);
 }
