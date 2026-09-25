@@ -1,6 +1,8 @@
 /**
  * API Route: /api/pami/autorizaciones-afiliado
- * Proxy hacia PAMI farma que reenvía las cookies de sesión del usuario.
+ *
+ * Proxy hacia PAMI farma. Recibe la cookie de sesión PAMI desde
+ * el header X-Pami-Cookie (enviado por el cliente) y la reenvía.
  *
  * Query params:
  *   - numeroAfiliado: string (requerido)
@@ -8,10 +10,13 @@
  *   - fechaDesde: string ISO (opcional)
  *   - fechaHasta: string ISO (opcional)
  *   - pagina: number (opcional, default 1)
+ *
+ * Header requerido:
+ *   - X-Pami-Cookie: <valor completo del header Cookie de PAMI>
+ *     (lo envía el cliente, que sí tiene acceso a las cookies de pami.org.ar)
  */
 
 import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
 
 const PAMI_BASE = 'https://farma.pami.org.ar';
 const PAMI_ENDPOINT = `${PAMI_BASE}/api/autorizaciones/consulta-afiliado`;
@@ -27,12 +32,23 @@ export async function GET(request) {
     );
   }
 
+  // La cookie la envía el cliente en el header personalizado X-Pami-Cookie
+  const pamiCookie = request.headers.get('x-pami-cookie') || '';
+
+  if (!pamiCookie) {
+    return NextResponse.json(
+      {
+        error: 'No hay sesión PAMI disponible. Iniciá sesión en farma.pami.org.ar y volvé a intentarlo.',
+        code: 'NO_COOKIE',
+      },
+      { status: 401 }
+    );
+  }
+
   // Construir los query params para PAMI
   const pamiParams = new URLSearchParams();
   pamiParams.set('numeroAfiliado', numeroAfiliado);
-
-  const idConvenio = searchParams.get('idConvenio') || '15'; // 15 = PAMI por defecto
-  pamiParams.set('idConvenio', idConvenio);
+  pamiParams.set('idConvenio', searchParams.get('idConvenio') || '15');
 
   if (searchParams.get('fechaDesde')) {
     pamiParams.set('fechaDesde', searchParams.get('fechaDesde'));
@@ -44,36 +60,42 @@ export async function GET(request) {
     pamiParams.set('pagina', searchParams.get('pagina'));
   }
 
-  // Reenviar las cookies de sesión del navegador del usuario hacia PAMI
-  const cookieStore = await cookies();
-  const allCookies = cookieStore.getAll();
-  const cookieHeader = allCookies.map((c) => `${c.name}=${c.value}`).join('; ');
-
-  // También reenviar la cookie del header original si viene
-  const incomingCookieHeader = request.headers.get('cookie') || '';
-
   const pamiUrl = `${PAMI_ENDPOINT}?${pamiParams.toString()}`;
+
+  console.log('[PAMI proxy] Calling:', pamiUrl);
+  console.log('[PAMI proxy] Cookie length:', pamiCookie.length);
 
   try {
     const pamiResponse = await fetch(pamiUrl, {
       method: 'GET',
       headers: {
         Accept: 'application/json, text/plain, */*',
-        Cookie: incomingCookieHeader || cookieHeader,
+        Cookie: pamiCookie,
         Referer: `${PAMI_BASE}/autorizaciones`,
         'User-Agent':
-          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
+          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
       },
-      // No seguir redirecciones (si hay 302 a login, lo informamos)
       redirect: 'manual',
     });
 
-    // Si PAMI devuelve redirección a login, la sesión expiró
+    console.log('[PAMI proxy] Response status:', pamiResponse.status);
+
+    // 302 → sesión expirada
     if (pamiResponse.status === 302 || pamiResponse.status === 301) {
       return NextResponse.json(
         {
-          error: 'Sesión PAMI expirada. Por favor iniciá sesión en farma.pami.org.ar primero.',
+          error: 'Sesión PAMI expirada. Iniciá sesión en farma.pami.org.ar y volvé a intentarlo.',
           code: 'SESSION_EXPIRED',
+        },
+        { status: 401 }
+      );
+    }
+
+    if (pamiResponse.status === 401 || pamiResponse.status === 403) {
+      return NextResponse.json(
+        {
+          error: 'Sin autorización en PAMI. Verificá que tenés la sesión activa.',
+          code: 'UNAUTHORIZED',
         },
         { status: 401 }
       );
@@ -81,28 +103,47 @@ export async function GET(request) {
 
     if (!pamiResponse.ok) {
       const errorText = await pamiResponse.text();
+      console.error('[PAMI proxy] Error response:', errorText.substring(0, 200));
       return NextResponse.json(
         {
-          error: `Error de PAMI: ${pamiResponse.status}`,
+          error: `Error de PAMI: HTTP ${pamiResponse.status}`,
           detail: errorText.substring(0, 500),
         },
         { status: pamiResponse.status }
       );
     }
 
-    const data = await pamiResponse.json();
+    const contentType = pamiResponse.headers.get('content-type') || '';
+    let data;
 
-    // Retornar los datos con headers CORS permisivos
+    if (contentType.includes('application/json')) {
+      data = await pamiResponse.json();
+    } else {
+      const text = await pamiResponse.text();
+      console.log('[PAMI proxy] Non-JSON response:', text.substring(0, 300));
+      // Intentar parsear igual por si viene sin content-type correcto
+      try {
+        data = JSON.parse(text);
+      } catch {
+        return NextResponse.json(
+          { error: 'PAMI devolvió una respuesta inesperada.', detail: text.substring(0, 300) },
+          { status: 502 }
+        );
+      }
+    }
+
     return NextResponse.json(data, {
       status: 200,
-      headers: {
-        'Cache-Control': 'no-store',
-      },
+      headers: { 'Cache-Control': 'no-store' },
     });
   } catch (err) {
-    console.error('[PAMI proxy] Error al conectar con PAMI:', err);
+    console.error('[PAMI proxy] Fetch error:', err?.message, err?.cause?.code);
     return NextResponse.json(
-      { error: 'No se pudo conectar con PAMI. Verificá tu conexión.' },
+      {
+        error: 'No se pudo conectar con PAMI.',
+        detail: err?.message,
+        code: err?.cause?.code,
+      },
       { status: 502 }
     );
   }

@@ -2728,3 +2728,28 @@
     .pami-modal-input-row { flex-direction: column; }
     .pami-modal-buscar-btn { width: 100%; }
 }
+
+/* Debug block */
+.pami-debug {
+    margin: 12px 16px;
+    background: #0f172a;
+    color: #94a3b8;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 11px;
+    font-family: monospace;
+    cursor: pointer;
+}
+.pami-debug summary {
+    color: #f39200;
+    font-weight: 700;
+    margin-bottom: 6px;
+    font-size: 12px;
+}
+.pami-debug pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 200px;
+    overflow-y: auto;
+}
